@@ -27,7 +27,7 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        return _androidOption(type);
       case TargetPlatform.iOS:
         return _iOSOption(type);
       case TargetPlatform.macOS:
@@ -52,6 +52,41 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static FirebaseOptions _androidOption(EnvironmentType type) {
+    switch(type) {
+      case EnvironmentType.PRODUCTION: return android;
+      case EnvironmentType.STAGING: return android_stag;
+      case EnvironmentType.DEVELOPMENT: return android_dev;
+      default: return android;
+    }
+  }
+
+  /// Firebase Configuration data
+  /// To be update with your own project configuration data
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
+    appId: '1:810536580213:android:efa70204a6ce51fa04b43c',
+    messagingSenderId: '810536580213', // project number
+    projectId: 'dumbdumbflutter',
+    storageBucket: 'dumbdumbflutter.appspot.com',
+  );
+
+  static const FirebaseOptions android_stag = FirebaseOptions(
+    apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
+    appId: '1:810536580213:android:2fc3957d9a31b1d404b43c',
+    messagingSenderId: '810536580213', // project number
+    projectId: 'dumbdumbflutter',
+    storageBucket: 'dumbdumbflutter.appspot.com',
+  );
+
+  static const FirebaseOptions android_dev = FirebaseOptions(
+    apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
+    appId: '1:810536580213:android:2fc3957d9a31b1d404b43c',
+    messagingSenderId: '810536580213', // project number
+    projectId: 'dumbdumbflutter',
+    storageBucket: 'dumbdumbflutter.appspot.com',
+  );
+
   static FirebaseOptions _iOSOption(EnvironmentType type) {
     switch(type) {
       case EnvironmentType.PRODUCTION: return ios;
@@ -60,16 +95,6 @@ class DefaultFirebaseOptions {
       default: return ios;
     }
   }
-
-  /// Firebase Configuration data
-  /// To be update with your own project configuration data
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_API KEY',
-    appId: 'YOUR_API_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR STORAGE BUCKET',
-  );
 
   /// Firebase Configuration data
   /// To be update with your own project configuration data

@@ -1,10 +1,10 @@
 
 import 'package:dumbdumb_flutter_app/app/utils/util.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:dumbdumb_flutter_app/app/model/error_model.dart';
 import 'package:dumbdumb_flutter_app/app/model/network/my_response.dart';
 import 'package:dumbdumb_flutter_app/app/viewmodel/login_view_model.dart';
-import 'package:dumbdumb_flutter_app/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 
 import 'base_stateful_page.dart';
@@ -45,8 +45,7 @@ class _LoginPageState extends BaseStatefulState<LoginPage> {
 
   @override
   AppBar appbar() {
-    final l10n = context.l10n;
-    return AppBar(title: Text(l10n.loginTitle));
+    return AppBar(title: Text(S.current.loginTitle));
   }
 
   /// An abstract method that is compulsory to override to
