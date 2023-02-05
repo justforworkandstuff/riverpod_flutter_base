@@ -14,6 +14,8 @@ class SharedPreferenceHandler {
     return _sharedPreferences ??= await SharedPreferences.getInstance();
   }
 
+  bool isLoggedIn() => getUser() != null;
+
   static void logout() {
     _sharedPreferences?.remove(spUser);
     _sharedPreferences?.remove(spAccessToken);
