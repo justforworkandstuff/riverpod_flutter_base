@@ -20,9 +20,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      var noti = await NotificationHandler.getInstance();
-    });
     return MultiProvider(
       providers: providerAssets(),
       child: MaterialApp(

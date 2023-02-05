@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:dumbdumb_flutter_app/app/assets/app_options.dart';
+import 'package:dumbdumb_flutter_app/app/assets/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,16 +33,16 @@ NotificationHandler? instance;
 
 class NotificationHandler {
 
-  static Future<NotificationHandler?> getInstance() async {
+  static Future<NotificationHandler?> getInstance(EnvironmentType type) async {
     if (instance == null) {
       instance = NotificationHandler();
-      await instance?.init();
+      await instance?.init(type);
     }
     return instance;
   }
 
-  Future<void> init() async {
-    await Firebase.initializeApp();
+  Future<void> init(EnvironmentType type) async {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform(type));
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<

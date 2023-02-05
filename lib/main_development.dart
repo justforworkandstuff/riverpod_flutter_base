@@ -14,7 +14,7 @@ import 'app/view/app.dart';
 Future<void> main() async {
 
   // An init() Function to perform all required initial configuration before app start running
-  init(EnvironmentType.DEVELOPMENT);
+  await init(EnvironmentType.DEVELOPMENT);
 
   // Start to run the app
   runApp(const App());

@@ -33,12 +33,16 @@ class BaseServices {
 
   /// Generate the token strings with Bearer Authentication format
   String get authToken {
-    return 'Bearer ${SharedPreferenceHandler.getAccessToken()}';
+    return SharedPreferenceHandler.getAccessToken().isNotEmpty
+        ? 'Bearer ${SharedPreferenceHandler.getAccessToken()}'
+        : '';
   }
 
   /// Generate the token strings with Bearer Authentication format
   String get refreshToken {
-    return 'Bearer ${SharedPreferenceHandler.getRefreshToken()}';
+    return SharedPreferenceHandler.getRefreshToken().isNotEmpty
+        ? 'Bearer ${SharedPreferenceHandler.getRefreshToken()}'
+        : '';
   }
 
   /// Function to include all required initialization steps
@@ -48,33 +52,31 @@ class BaseServices {
     _instance = this;
     _dio = Dio(BaseOptions(headers: <String, String>{
       'Content-Type': ContentType.json.value,
-      'Authorization': authToken
+      if(authToken.isNotEmpty) 'Authorization': authToken
     }));
 
-    _dio?.interceptors
-        .add(QueuedInterceptorsWrapper(onError: (error, handler) async {
-          /// Access Token is considered expired when API return code 401/403
-          /// Subject to change depends on backend configuration
-          if (error.response?.statusCode == 403 || error.response?.statusCode == 401) {
-            try {
-              final dynamic responseRefreshToken = await _refreshTokenAPI();
+    _dio?.interceptors.add(QueuedInterceptorsWrapper(onError: (error, handler) async {
+      /// Access Token is considered expired when API return code 401/403
+      /// Subject to change depends on backend configuration
+      if (error.response?.statusCode == 403 || error.response?.statusCode == 401) {
+        try {
+          final dynamic responseRefreshToken = await _refreshTokenAPI();
+          final options = error.response!.requestOptions;
 
-              if (responseRefreshToken is bool) {
-                final options = error.response!.requestOptions;
-                options.headers['Authorization'] = authToken;
-
-            await Dio().fetch<dynamic>(options).then((r) {
-              return handler.resolve(r);
-            });
+          if (responseRefreshToken is bool) {
+            options.headers['Authorization'] = authToken;
           }
-          return handler.reject(responseRefreshToken);
+
+          await Dio().fetch<dynamic>(options).then((r) {
+            return handler.resolve(r);
+          }, onError: (e) => handler.reject(e));
         } catch (e) {
           if (e is DioError) {
-            handler.reject(e);
+            return handler.reject(e);
           }
         }
       }
-      return handler.reject(error);
+      if(!handler.isCompleted) return handler.reject(error);
     }));
   }
 
@@ -82,19 +84,25 @@ class BaseServices {
     try {
       final response = await Dio().post<String>(
         '$hostUrl/$refreshTokenUrl',
-        options: Options( headers: <String, String>{'Authorization': refreshToken}),
+        options: Options(headers: <String, String>{'Authorization': refreshToken}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
-        final tokenModel = TokenModel.fromJson(
-            json.decode(response.data ?? '') as Map<String, dynamic>);
+        final tokenModel = TokenModel.fromJson(json.decode(response.data ?? '') as Map<String, dynamic>);
+
         SharedPreferenceHandler.putAccessToken(tokenModel.accessToken);
         SharedPreferenceHandler.putRefreshToken(tokenModel.refreshToken);
       }
       return response.statusCode == HttpStatus.ok;
     } catch (e) {
       if (e is DioError) {
-        e.response?.data = ErrorModel(e.response?.statusCode ?? HttpErrorCode.NONE, errorMessage: e.response?.statusMessage);
+        e.response?.data = ErrorModel(
+            e.response?.statusCode ?? HttpErrorCode.NONE,
+            errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
+            errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
+            errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,
+            error: e.error
+        );
       }
       return e;
     }
@@ -106,7 +114,7 @@ class BaseServices {
   Future<MyResponse> callAPI(HttpRequestType requestType, String path,
       { Map<String, dynamic>? postBody, Options? options}) async {
     try {
-      dio?.options.contentType = Headers.formUrlEncodedContentType;
+      dio?.options.contentType = Headers.jsonContentType;
       var response;
 
       switch(requestType) {
@@ -125,7 +133,7 @@ class BaseServices {
       }
 
       if(response?.statusCode == HttpStatus.ok) {
-        return MyResponse.complete(response?.data as String);
+        return MyResponse.complete(JsonParsing(response.data).toJson());
       }
     } catch(e) {
       if(e is DioError && e.response?.data != null) {
