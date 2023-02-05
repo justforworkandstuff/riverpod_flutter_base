@@ -5,15 +5,12 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:dumbdumb_flutter_app/app/assets/app_options.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:dumbdumb_flutter_app/app/view/get_profile_page.dart';
 import 'package:dumbdumb_flutter_app/app/view/login_page.dart';
-import 'package:dumbdumb_flutter_app/l10n/l10n.dart';
 import 'package:provider/provider.dart';
-
-import '../assets/app_options.dart';
-import '../utils/notification_handler.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -30,10 +27,12 @@ class App extends StatelessWidget {
           ),
         ),
         localizationsDelegates: const [
-          AppLocalizations.delegate,
+          S.delegate,
           GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: AppLocalizations.supportedLocales,
+        supportedLocales: S.delegate.supportedLocales,
         home: LoginPage(),
       ),
     );

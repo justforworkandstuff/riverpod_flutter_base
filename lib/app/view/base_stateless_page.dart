@@ -1,6 +1,6 @@
 
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:dumbdumb_flutter_app/l10n/l10n.dart';
 import 'package:provider/provider.dart';
 
 import '../model/error_model.dart';
@@ -25,14 +25,13 @@ abstract class BaseStatelessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    final l10n = context.l10n;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if(urgentError().forbidden()) {
         final actions = List<Widget>.empty(growable: true)
-          ..add(WidgetUtil.getDialogButton(l10n.textOk, () {
+          ..add(WidgetUtil.getDialogButton(S.current.textOk, () {
             Navigator.of(context, rootNavigator: true).pop();
           }));
-        WidgetUtil.showAlertDialog(context, l10n.errorTitle, urgentError().getErrorMessage(), actions, false);
+        WidgetUtil.showAlertDialog(context, S.current.errorTitle, urgentError().getErrorMessage(), actions, false);
       }
     });
     return Scaffold(
