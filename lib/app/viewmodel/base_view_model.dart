@@ -39,6 +39,12 @@ class BaseViewModel with ChangeNotifier {
     urgentError = ErrorModel(HttpErrorCode.NONE);
   }
 
+  /// Reset [response] to mark the response as consumed.
+  void consumed() {
+    response = MyResponse.initial();
+    notify(response);
+  }
+
   /// Handle response and [_notifyUrgent()] if user access status is FORBIDDEN/UNAUTHORIZED
   /// Subject to change based on server configuration
   void _checkUrgentError(MyResponse response) {

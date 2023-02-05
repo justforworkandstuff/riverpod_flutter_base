@@ -17,13 +17,14 @@ dependencies:
   intl: ^0.17.0
 
   # Device Info
-  device_info: ^2.0.0
-  package_info: ^2.0.0
+  device_info_plus: ^8.0.0
+  package_info_plus: ^3.0.2
   store_redirect: ^2.0.1
 
   # Data
   dio: ^4.0.0
   shared_preferences: ^2.0.5
+  uuid: ^3.0.6
 
   # Firebase
   firebase_core: ^2.4.1
@@ -34,6 +35,9 @@ dependencies:
 
   # Push Notification
   flutter_local_notifications: ^13.0.0
+
+  # UI / UX
+  flutter_animate: ^3.1.0
 
 flutter:
   uses-material-design: true
