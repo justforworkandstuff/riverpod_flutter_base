@@ -22,7 +22,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'my_dumbdumb_channel', // id
   'my app important channel', // title
-  'This channel is used for my app important notifications.', // description
+  description: 'This channel is used for my app important notifications.', // description
   importance: Importance.high,
   showBadge: true
 );
@@ -48,12 +48,12 @@ class NotificationHandler {
         ?.createNotificationChannel(channel);
 
     const initializationSettingsAndroid = AndroidInitializationSettings('mipmap/ic_launcher');
-    const initializationSettingsIOS = IOSInitializationSettings();
+    const initializationSettingsIOS = DarwinInitializationSettings();
     const initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
+        onDidReceiveNotificationResponse: selectNotification);
 
     /// Update the iOS foreground notification presentation options to allow
     /// heads up notifications.
@@ -79,12 +79,12 @@ class NotificationHandler {
             android: AndroidNotificationDetails(
             channel.id,
             channel.name,
-            channel.description,
+            channelDescription: channel.description,
             icon: 'mipmap/ic_launcher',
               channelShowBadge: true
           ))
         : NotificationDetails(
-            iOS: IOSNotificationDetails(
+            iOS: DarwinNotificationDetails(
                 presentAlert: true, presentBadge: true));
 
     try {
@@ -97,7 +97,7 @@ class NotificationHandler {
     }
   }
 
-  Future selectNotification(String? payload) async {
+  Future selectNotification(NotificationResponse? payload) async {
 
   }
 

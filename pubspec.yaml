@@ -33,7 +33,7 @@ dependencies:
   firebase_remote_config: ^3.0.9
 
   # Push Notification
-  flutter_local_notifications: ^5.0.0+3
+  flutter_local_notifications: ^13.0.0
 
 flutter:
   uses-material-design: true
