@@ -1,11 +1,9 @@
 
 import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../model/error_model.dart';
 import '../utils/util.dart';
-import '../viewmodel/login_view_model.dart';
 
 /// A base class to unified all the required common functions and widgets
 /// Inherited the StatelessWidget that does not required changes and user interaction

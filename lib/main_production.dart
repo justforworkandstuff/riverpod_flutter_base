@@ -17,5 +17,5 @@ Future<void> main() async {
   await init(EnvironmentType.PRODUCTION);
 
   // Start to run the app
-  runApp(const App());
+  runApp(App());
 }

@@ -71,7 +71,7 @@ class BaseServices {
             return handler.resolve(r);
           }, onError: (e) => handler.reject(e));
         } catch (e) {
-          if (e is DioError) {
+          if (e is DioException) {
             return handler.reject(e);
           }
         }
@@ -95,13 +95,13 @@ class BaseServices {
       }
       return response.statusCode == HttpStatus.ok;
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         e.response?.data = ErrorModel(
             e.response?.statusCode ?? HttpErrorCode.NONE,
             errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
             errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
             errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,
-            error: e.error
+            error: e.error as String
         );
       }
       return e;
@@ -136,11 +136,11 @@ class BaseServices {
         return MyResponse.complete(JsonParsing(response.data).toJson());
       }
     } catch(e) {
-      if(e is DioError && e.response?.data != null) {
+      if(e is DioException && e.response?.data != null) {
         return MyResponse.error(JsonParsing(e.response?.data).toJson());
       }
       return MyResponse.error(e);
     }
-    return MyResponse.error(DioError(requestOptions: RequestOptions(path: path)));
+    return MyResponse.error(DioException(requestOptions: RequestOptions(path: path)));
   }
 }
