@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dumbdumb_flutter_app/app/assets/importers/importer_general.dart';
 
 part 'item_model.freezed.dart';
 part 'item_model.g.dart';

@@ -117,7 +117,7 @@ class __$$ItemModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ItemModelImpl with DiagnosticableTreeMixin implements _ItemModel {
+class _$ItemModelImpl implements _ItemModel {
   const _$ItemModelImpl({this.activity, this.participants, this.price});
 
   factory _$ItemModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -131,18 +131,8 @@ class _$ItemModelImpl with DiagnosticableTreeMixin implements _ItemModel {
   final double? price;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'ItemModel(activity: $activity, participants: $participants, price: $price)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'ItemModel'))
-      ..add(DiagnosticsProperty('activity', activity))
-      ..add(DiagnosticsProperty('participants', participants))
-      ..add(DiagnosticsProperty('price', price));
   }
 
   @override

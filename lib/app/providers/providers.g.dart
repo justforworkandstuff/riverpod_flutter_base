@@ -23,7 +23,7 @@ final helloWorldProvider = AutoDisposeProvider<String>.internal(
 );
 
 typedef HelloWorldRef = AutoDisposeProviderRef<String>;
-String _$getItemModelHash() => r'97d31ccbe1a3fd96dd6b14320d975921fe62d76a';
+String _$getItemModelHash() => r'ba52929e2ee93a7eb70adcc489ecbe2bb551a759';
 
 /// This will create a provider named `getItemModelProvider`
 /// which will cache the result of this function.

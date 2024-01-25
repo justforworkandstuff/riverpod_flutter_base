@@ -2,7 +2,7 @@ import 'package:dumbdumb_flutter_app/app/model/error_model.dart';
 import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
-import 'base_stateful_page.dart';
+import 'basepages/base_stateful_page.dart';
 
 class LoginPage extends BaseStatefulPage {
   @override

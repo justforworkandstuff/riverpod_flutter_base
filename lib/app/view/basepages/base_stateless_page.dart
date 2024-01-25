@@ -1,16 +1,16 @@
 
 import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:dumbdumb_flutter_app/app/model/error_model.dart';
-import 'package:dumbdumb_flutter_app/app/utils/util.dart';
+
+import '../../model/error_model.dart';
+import '../../utils/util.dart';
 
 /// A base class to unified all the required common functions and widgets
-/// Inherited the StatefulWidget that allow changes to be made when user interact with it
+/// Inherited the StatelessWidget that does not required changes and user interaction
 /// more info: https://docs.flutter.dev/development/ui/interactive#stateful-and-stateless-widgets
-abstract class BaseStatefulPage extends StatefulWidget { }
+abstract class BaseStatelessPage extends StatelessWidget {
 
-/// A basic state that include common widgets and Ui logic handling
-abstract class BaseStatefulState<Page extends BaseStatefulPage> extends State<Page> {
+  late BuildContext context;
 
   //Devices Settings
   Size size() => MediaQuery.of(context).size;
@@ -34,6 +34,7 @@ abstract class BaseStatefulState<Page extends BaseStatefulPage> extends State<Pa
   /// so that all inheriting classes would not needed to handle it repeatedly.
   @override
   Widget build(BuildContext context) {
+    this.context = context;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if(urgentError()?.forbidden() == true) {
         final actions = List<Widget>.empty(growable: true)

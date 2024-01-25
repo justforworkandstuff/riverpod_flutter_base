@@ -9,6 +9,7 @@ import 'package:dumbdumb_flutter_app/app/assets/importers/importer_general.dart'
 import 'package:dumbdumb_flutter_app/app/assets/importers/importer_screens.dart';
 import 'package:dumbdumb_flutter_app/app/assets/importers/importer_structural.dart';
 
+
 /// Extend ConsumerWidget instead of StatelessWidget, which is exposed by Riverpod
 class App extends ConsumerWidget {
   @override
@@ -27,6 +28,6 @@ class App extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        home: Scaffold(appBar: AppBar(title: const Text('Example')), body: DisplayConsumerPage()));
+        home: Scaffold(appBar: AppBar(title: const Text('Example')), body: ToDoPage()));
   }
 }

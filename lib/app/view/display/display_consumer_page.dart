@@ -13,7 +13,6 @@ class DisplayConsumerPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     /// We can use "ref.watch" inside our widget like we did using "Consumer"
     final AsyncValue<ItemModel> itemModel = ref.watch(getItemModelProvider);
-    print('vitti: get itemModel $itemModel');
     return Center(
         child: switch (itemModel) {
       AsyncData(:final value) => Text('Data is: ${value.activity}'),
