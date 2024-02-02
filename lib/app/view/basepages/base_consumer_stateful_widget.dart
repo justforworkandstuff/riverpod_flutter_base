@@ -1,9 +1,7 @@
 import 'package:dumbdumb_flutter_app/app/assets/importers/importer_general.dart';
 
 abstract class BaseConsumerStatefulWidget extends ConsumerStatefulWidget {
-  const BaseConsumerStatefulWidget({this.key});
-
-  final key;
+  const BaseConsumerStatefulWidget({super.key});
 }
 
 abstract class BaseConsumerStatefulWidgetState<Page extends BaseConsumerStatefulWidget> extends ConsumerState<Page> {

@@ -9,7 +9,7 @@ class ToDoListNotifier extends _$ToDoListNotifier {
   @override
   FutureOr<List<ToDoModel>> build() async {
     /// Defines an initial value when we instantiate the ToDoListNotifier
-    return [ToDoModel(description: 'Description 1', completed: true), ToDoModel(description: 'Description 2')];
+    return [const ToDoModel(description: 'Description 1', completed: true), const ToDoModel(description: 'Description 2')];
   }
 
   /// Consider V1 as the example where we make a network request.
@@ -29,7 +29,7 @@ class ToDoListNotifier extends _$ToDoListNotifier {
   /// V2 simulates the api call returns response with [mockRawResponse]
   /// Then how can it be handle to update the UI with the new data.
   /// [Note]: This will only work IF the api returns us the new list of the response after
-  /// the successful [POST] api call.
+  /// the successful [post] api call.
   Future<void> addToDoV2(ToDoModel toDoModel) async {
     /// Simulate default expected api call
     // final response = await http.post(
@@ -41,8 +41,8 @@ class ToDoListNotifier extends _$ToDoListNotifier {
     // );
 
     /// Mock [POST] api call response data
-    final mockRawResponse =
-        '[{\"description\": \"Description 1\", \"completed\": true}, {\"description\": \"Description 2\", \"completed\": false}, {\"description\": \"This is a new todo v2\", \"completed\": true}]';
+    const mockRawResponse =
+        '[{"description": "Description 1", "completed": true}, {"description": "Description 2", "completed": false}, {"description": "This is a new todo v2", "completed": true}]';
 
     /// Decode jsonString as List
     final mappedRawResponseList = List<Map<String, dynamic>>.from(jsonDecode(mockRawResponse));
@@ -50,10 +50,10 @@ class ToDoListNotifier extends _$ToDoListNotifier {
     /// Map raw data as model object
     List<ToDoModel> mappedDataList = mappedRawResponseList.map((e) => ToDoModel.fromJson(e)).toList();
 
-    state = AsyncValue.loading();
+    state = const AsyncValue.loading();
 
     /// Simulate api call delay
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     /// We update the local cache to match the new state.
     /// This will notify all listeners.
@@ -61,7 +61,7 @@ class ToDoListNotifier extends _$ToDoListNotifier {
   }
 
   /// V3 handles it in a way where we will be having two API calls:
-  /// First being the [POST] api call, then the second being a [GET] api call
+  /// First being the [post] api call, then the second being a [get] api call
   /// to get the latest data.
   Future<void> addToDoV3(ToDoModel toDoModel) async {
     /// We don't care about the API response
@@ -73,19 +73,21 @@ class ToDoListNotifier extends _$ToDoListNotifier {
     //   body: jsonEncode(toDoModel.toJson()),
     // );
 
-    state = AsyncValue.loading();
+    state = const AsyncValue.loading();
 
     /// Simulate api call delay
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     /// Once the post request is done, we can mark the local cache as dirty.
     /// This will cause "build" on our notifier to asynchronously be called again,
     /// and will notify listeners when doing so.
     ref.invalidateSelf();
 
+    /// ------- Unnecessary section in real scenario -------
+    /// Added this section to make sure the mock response returns a newer set of data after calling the [POST] api
     /// Mock [GET] api call response data
-    final mockRawResponse =
-        '[{\"description\": \"Description 1\", \"completed\": true}, {\"description\": \"Description 2\", \"completed\": false}, {\"description\": \"This is a new todo v3\", \"completed\": true}]';
+    const mockRawResponse =
+        '[{"description": "Description 1", "completed": true}, {"description": "Description 2", "completed": false}, {"description": "This is a new todo v3", "completed": true}]';
 
     /// Decode jsonString as List
     final mappedRawResponseList = List<Map<String, dynamic>>.from(jsonDecode(mockRawResponse));
@@ -94,9 +96,10 @@ class ToDoListNotifier extends _$ToDoListNotifier {
     List<ToDoModel> mappedDataList = mappedRawResponseList.map((e) => ToDoModel.fromJson(e)).toList();
 
     /// Simulate api call delay
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     state = AsyncData(mappedDataList);
+    /// ------- End -------
 
     /// (Optional) We can then wait for the new state to be computed.
     /// This ensures "addTodo" does not complete until the new state is available.
@@ -105,7 +108,7 @@ class ToDoListNotifier extends _$ToDoListNotifier {
 
   /// V4 updates the state manually on the FE side.
   /// We will manually update the state by using previous state, then
-  /// adding the [POST] object.
+  /// adding the [post] object.
   /// [Note]: This will require us to know if the BE inserts the new object into
   /// the start or the end of the list.
   Future<void> addToDoV4(ToDoModel toDoModel) async {
@@ -117,7 +120,7 @@ class ToDoListNotifier extends _$ToDoListNotifier {
     // );
 
     /// Simulate api call delay
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
 
     /// We can then manually update the local cache. For this, we'll need to
     /// obtain the previous state.

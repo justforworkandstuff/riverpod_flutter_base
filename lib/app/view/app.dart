@@ -12,6 +12,8 @@ import 'package:dumbdumb_flutter_app/app/assets/importers/importer_structural.da
 
 /// Extend ConsumerWidget instead of StatelessWidget, which is exposed by Riverpod
 class App extends ConsumerWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
@@ -28,6 +30,6 @@ class App extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        home: Scaffold(appBar: AppBar(title: const Text('Example')), body: ToDoPage()));
+        home: Scaffold(appBar: AppBar(title: const Text('Example')), body: const ToDoPage()));
   }
 }

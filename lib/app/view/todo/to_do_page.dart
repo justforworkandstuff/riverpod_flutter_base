@@ -36,51 +36,51 @@ class _ToDoPageState extends BaseConsumerStatefulWidgetState<ToDoPage> {
                   /// to call the "addTodo" method.
                   ref
                       .read(toDoListNotifierProvider.notifier)
-                      .addToDoV1(ToDoModel(description: 'This is a new todo v1'));
+                      .addToDoV1(const ToDoModel(description: 'This is a new todo v1'));
                 },
-                child: Text('Add to-do v1')),
+                child: const Text('Add to-do v1')),
             ElevatedButton(
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(isError ? Colors.red : null)),
                 onPressed: () {
                   /// We keep the future returned by addTodo in a variable
                   final future = ref
                       .read(toDoListNotifierProvider.notifier)
-                      .addToDoV2(ToDoModel(description: 'This is a new todo v2'));
+                      .addToDoV2(const ToDoModel(description: 'This is a new todo v2'));
 
                   /// We store that future in the local state
                   setState(() {
                     _pendingAddToDo = future;
                   });
                 },
-                child: Text('Add to-do v2')),
+                child: const Text('Add to-do v2')),
             ElevatedButton(
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(isError ? Colors.red : null)),
                 onPressed: () {
                   /// We keep the future returned by addTodo in a variable
                   final future = ref
                       .read(toDoListNotifierProvider.notifier)
-                      .addToDoV3(ToDoModel(description: 'This is a new todo v3'));
+                      .addToDoV3(const ToDoModel(description: 'This is a new todo v3'));
 
                   /// We store that future in the local state
                   setState(() {
                     _pendingAddToDo = future;
                   });
                 },
-                child: Text('Add to-do v3')),
+                child: const Text('Add to-do v3')),
             ElevatedButton(
                 style: ButtonStyle(backgroundColor: MaterialStateProperty.all(isError ? Colors.red : null)),
                 onPressed: () {
                   /// We keep the future returned by addTodo in a variable
                   final future = ref
                       .read(toDoListNotifierProvider.notifier)
-                      .addToDoV4(ToDoModel(description: 'This is a new todo v4'));
+                      .addToDoV4(const ToDoModel(description: 'This is a new todo v4'));
 
                   /// We store that future in the local state
                   setState(() {
                     _pendingAddToDo = future;
                   });
                 },
-                child: Text('Add to-do v4')),
+                child: const Text('Add to-do v4')),
             Container(
               height: height() * 0.5,
               width: double.maxFinite,
@@ -98,9 +98,9 @@ class _ToDoPageState extends BaseConsumerStatefulWidgetState<ToDoPage> {
   Widget _buildListView(List<ToDoModel> data) {
     return Column(
       children: [
-        Align(
+        const Align(
             alignment: Alignment.center,
-            child: const Text('To-do list',
+            child: Text('To-do list',
                 style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline))),
         Expanded(
           child: ListView.builder(

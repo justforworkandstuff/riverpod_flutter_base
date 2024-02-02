@@ -30,6 +30,7 @@ dependencies:
   uuid: ^4.3.3
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
+  http: ^1.2.0
 
   # Firebase
   firebase_core: ^2.4.1
@@ -53,6 +54,7 @@ flutter:
 flutter_intl:
   enabled: true
 dev_dependencies:
+  flutter_lints: ^3.0.1
   build_runner: ^2.4.8
   custom_lint: ^0.5.8
   freezed: ^2.4.6

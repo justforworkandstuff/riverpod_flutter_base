@@ -1,15 +1,16 @@
-
 import 'package:dumbdumb_flutter_app/app/model/network/my_response.dart';
 import '../service/user_services.dart';
 
-/// Repository class is defining the business logic for accessing data source,
-/// eg:
-/// 1. getting data from multiple source and compiled as one data type before passing back to ViewModel.
-/// 2. decide when to return CacheData or Actual Realtime ServerData
-/// 3. And many more
-class UserRepository {
+/// Repository class serves as an intermediary between the data source with the business logic.
+/// It promotes the separation of concerns between data accessing logic and actual business logic
+/// of the app.
+/// Data sources that the Repository can take from could be either local or remote sources.
+/// Local data sources: Local databases, Shared Preferences, Hive, and any data that is stored locally.
+/// Remote data sources: REST API calls, Backend calls and so on.
+/// Main purposed is to work as a data storage.
 
-  UserServices _userServices = UserServices();
+class UserRepository {
+  final UserServices _userServices = UserServices();
 
   Future<MyResponse> login(String username, String password) async {
     return await _userServices.login(username, password);

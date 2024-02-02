@@ -18,7 +18,7 @@ class BaseViewModel with ChangeNotifier {
   /// An observable value to notify view layer for any error that required immediate attention
   /// Usage in this project will be:
   /// when JWT Authentication failure, immediately notify the view layer
-  ErrorModel urgentError = ErrorModel(HttpErrorCode.NONE);
+  ErrorModel urgentError = ErrorModel(HttpErrorCode.none);
 
   /// Unified method to call Provider [notifyListeners()] to update [response] value.
   void notify(MyResponse newResponse) {
@@ -36,7 +36,7 @@ class BaseViewModel with ChangeNotifier {
 
   /// Reset [urgentError] to prevent duplicate notify.
   void _resetUrgent() {
-    urgentError = ErrorModel(HttpErrorCode.NONE);
+    urgentError = ErrorModel(HttpErrorCode.none);
   }
 
   /// Reset [response] to mark the response as consumed.
@@ -48,9 +48,9 @@ class BaseViewModel with ChangeNotifier {
   /// Handle response and [_notifyUrgent()] if user access status is FORBIDDEN/UNAUTHORIZED
   /// Subject to change based on server configuration
   void _checkUrgentError(MyResponse response) {
-    if(response.status == ResponseStatus.ERROR && response.error != null && response.error is String) {
+    if(response.status == ResponseStatus.error && response.error != null && response.error is String) {
       ErrorModel error = ErrorModel.fromJson(jsonDecode(response.error as String));
-      if(error.errorCode == HttpErrorCode.FORBIDDEN || error.errorCode == HttpErrorCode.UNAUTHORIZED) {
+      if(error.errorCode == HttpErrorCode.forbidden || error.errorCode == HttpErrorCode.unauthorized) {
         _notifyUrgent(error);
       }
     }

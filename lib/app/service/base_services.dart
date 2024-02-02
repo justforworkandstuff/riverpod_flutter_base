@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:dumbdumb_flutter_app/app/assets/constants.dart';
+import 'package:dumbdumb_flutter_app/app/assets/enums.dart';
 import 'package:dumbdumb_flutter_app/app/model/error_model.dart';
 import 'package:dumbdumb_flutter_app/app/utils/util.dart';
 
@@ -17,7 +18,7 @@ class BaseServices {
 
   static BaseServices? _instance;
   static String? hostUrl;
-  static String? refreshTokenUrl = "/account/refresh"; //subject to change based on backend configuration
+  static String? refreshTokenUrl = '/account/refresh'; //subject to change based on backend configuration
   String apiUrl() => hostUrl ?? '';
 
   /// private access dio instance and accessible using dio() getter
@@ -97,7 +98,7 @@ class BaseServices {
     } catch (e) {
       if (e is DioException) {
         e.response?.data = ErrorModel(
-            e.response?.statusCode ?? HttpErrorCode.NONE,
+            e.response?.statusCode ?? HttpErrorCode.none,
             errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
             errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
             errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,
@@ -115,25 +116,25 @@ class BaseServices {
       { Map<String, dynamic>? postBody, Options? options}) async {
     try {
       dio?.options.contentType = Headers.jsonContentType;
-      var response;
+      Response? response;
 
       switch(requestType) {
-        case HttpRequestType.GET: {
+        case HttpRequestType.get: {
           response = await dio?.get(path);
         } break;
-        case HttpRequestType.POST: {
+        case HttpRequestType.post: {
           response = await dio?.post(path, data: postBody);
         } break;
-        case HttpRequestType.PUT:
+        case HttpRequestType.put:
           response = await dio?.put(path, data: postBody);
           break;
-        case HttpRequestType.DELETE:
+        case HttpRequestType.delete:
           response = await dio?.delete(path, data: postBody);
           break;
       }
 
       if(response?.statusCode == HttpStatus.ok) {
-        return MyResponse.complete(JsonParsing(response.data).toJson());
+        return MyResponse.complete(JsonParsing(response?.data).toJson());
       }
     } catch(e) {
       if(e is DioException && e.response?.data != null) {

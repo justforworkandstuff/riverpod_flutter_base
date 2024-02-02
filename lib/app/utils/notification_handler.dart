@@ -69,9 +69,9 @@ class NotificationHandler {
       showNotification(message, flutterLocalNotificationsPlugin);
     });
 
-    final _token = await FirebaseMessaging.instance.getToken();
+    final token = await FirebaseMessaging.instance.getToken();
 
-    updateTokenToServer(_token);
+    updateTokenToServer(token);
   }
 
   static Future<void> showNotification(RemoteMessage message,
@@ -85,17 +85,17 @@ class NotificationHandler {
             icon: 'mipmap/ic_launcher',
               channelShowBadge: true
           ))
-        : NotificationDetails(
+        : const NotificationDetails(
             iOS: DarwinNotificationDetails(
                 presentAlert: true, presentBadge: true));
 
     try {
       flutterLocalNotificationsPlugin.show(message.hashCode,
-          message.notification?.title ?? "My Dumb Dumb App",
-          message.notification?.body ?? "-",
+          message.notification?.title ?? 'My Dumb Dumb App',
+          message.notification?.body ?? '-',
           notificationDetail);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
   }
 

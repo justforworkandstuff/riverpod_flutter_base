@@ -54,9 +54,9 @@ class DefaultFirebaseOptions {
 
   static FirebaseOptions _androidOption(EnvironmentType type) {
     switch(type) {
-      case EnvironmentType.PRODUCTION: return android;
-      case EnvironmentType.STAGING: return android_stag;
-      case EnvironmentType.DEVELOPMENT: return android_dev;
+      case EnvironmentType.production: return android;
+      case EnvironmentType.staging: return androidStaging;
+      case EnvironmentType.development: return androidDev;
       default: return android;
     }
   }
@@ -71,7 +71,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'dumbdumbflutter.appspot.com',
   );
 
-  static const FirebaseOptions android_stag = FirebaseOptions(
+  static const FirebaseOptions androidStaging = FirebaseOptions(
     apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
     appId: '1:810536580213:android:2fc3957d9a31b1d404b43c',
     messagingSenderId: '810536580213', // project number
@@ -79,7 +79,7 @@ class DefaultFirebaseOptions {
     storageBucket: 'dumbdumbflutter.appspot.com',
   );
 
-  static const FirebaseOptions android_dev = FirebaseOptions(
+  static const FirebaseOptions androidDev = FirebaseOptions(
     apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
     appId: '1:810536580213:android:2fc3957d9a31b1d404b43c',
     messagingSenderId: '810536580213', // project number
@@ -89,9 +89,9 @@ class DefaultFirebaseOptions {
 
   static FirebaseOptions _iOSOption(EnvironmentType type) {
     switch(type) {
-      case EnvironmentType.PRODUCTION: return ios;
-      case EnvironmentType.STAGING: return ios_stag;
-      case EnvironmentType.DEVELOPMENT: return ios_dev;
+      case EnvironmentType.production: return ios;
+      case EnvironmentType.staging: return iosStaging;
+      case EnvironmentType.development: return iosDev;
       default: return ios;
     }
   }
@@ -110,7 +110,7 @@ class DefaultFirebaseOptions {
 
   /// Firebase Configuration data
   /// To be update with your own project configuration data
-  static const FirebaseOptions ios_stag = FirebaseOptions(
+  static const FirebaseOptions iosStaging = FirebaseOptions(
     apiKey: 'YOUR_API KEY',
     appId: 'YOUR_API_ID',
     messagingSenderId: 'YOUR_SENDER_ID',
@@ -122,7 +122,7 @@ class DefaultFirebaseOptions {
 
   /// Firebase Configuration data
   /// To be update with your own project configuration data
-  static const FirebaseOptions ios_dev = FirebaseOptions(
+  static const FirebaseOptions iosDev = FirebaseOptions(
     apiKey: 'YOUR_API KEY',
     appId: 'YOUR_API_ID',
     messagingSenderId: 'YOUR_SENDER_ID',

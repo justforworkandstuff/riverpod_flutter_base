@@ -13,12 +13,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   // An init() Function to perform all required initial configuration before app start running
-  await init(EnvironmentType.STAGING);
+  await init(EnvironmentType.staging);
 
   // Start to run the app
   runApp(
       // For widgets to be able to read providers, we need to wrap the entire
       // application in a "ProviderScope" widget.
       // This is where the state of our providers will be stored.
-      ProviderScope(child: App()));
+      const ProviderScope(child: App()));
 }

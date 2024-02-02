@@ -10,9 +10,9 @@ class TokenModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['auth_token'] = this.accessToken;
-    data['refresh_token'] = this.refreshToken;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['auth_token'] = accessToken;
+    data['refresh_token'] = refreshToken;
     return data;
   }
 

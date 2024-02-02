@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WidgetUtil {
-  static void showAlertDialog(BuildContext context, String? title,
-      String? content, List<Widget> actions, bool dismissible) {
+  static void showAlertDialog(
+      BuildContext context, String? title, String? content, List<Widget> actions, bool dismissible) {
     showDialog<void>(
         context: context,
         barrierDismissible: dismissible,
@@ -19,8 +19,7 @@ class WidgetUtil {
             : getCupertinoDialog(title, content, actions));
   }
 
-  static Widget getCupertinoDialog(
-      String? title, String? content, List<Widget> actions) {
+  static Widget getCupertinoDialog(String? title, String? content, List<Widget> actions) {
     return CupertinoAlertDialog(
       title: Text(title ?? ''),
       content: Text(content ?? ''),
@@ -28,8 +27,7 @@ class WidgetUtil {
     );
   }
 
-  static Widget getMaterialDialog(
-      String? title, String? content, List<Widget> actions) {
+  static Widget getMaterialDialog(String? title, String? content, List<Widget> actions) {
     return AlertDialog(
       title: Text(title ?? ''),
       content: Text(content ?? ''),
@@ -41,13 +39,12 @@ class WidgetUtil {
     return Platform.isAndroid
         ? TextButton(onPressed: onPressed, child: Text(text))
         : CupertinoDialogAction(
-      onPressed: onPressed,
-      child: Text(text),
-    );
+            onPressed: onPressed,
+            child: Text(text),
+          );
   }
 
-  static double getScaleFactor(BuildContext context) =>
-      min(MediaQuery.of(context).textScaleFactor, 1.3);
+  static double getScaleFactor(BuildContext context) => min(MediaQuery.of(context).textScaler.scale(1.0), 1.0);
 
   static void showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context)
@@ -62,8 +59,7 @@ extension DynamicParsing on dynamic {
 
   int parseInt() => this != null ? (int.tryParse(toString()) ?? 0) : 0;
 
-  double parseDouble() =>
-      this != null ? (double.tryParse(toString()) ?? 0.0) : 0.0;
+  double parseDouble() => this != null ? (double.tryParse(toString()) ?? 0.0) : 0.0;
 
   bool parseBool() {
     if (this != null) {
@@ -76,30 +72,29 @@ extension DynamicParsing on dynamic {
 
 extension JsonParsing on dynamic {
   String toJson() => jsonEncode(this);
+
   Map<String, dynamic> fromJson() => jsonDecode(this) as Map<String, dynamic>;
 }
 
 extension StringExt on String? {
-  String capitalize() => this?.isNotEmpty == true
-      ? this![0].toUpperCase() + this!.substring(1)
-      : this ?? '';
+  String capitalize() => this?.isNotEmpty == true ? this![0].toUpperCase() + this!.substring(1) : this ?? '';
 
-  String allCap() => this?.isNotEmpty == true
-      ? this!.characters.map((e) => e.toUpperCase()).join()
-      : this ?? '';
+  String allCap() => this?.isNotEmpty == true ? this!.characters.map((e) => e.toUpperCase()).join() : this ?? '';
 
   bool isValidPhoneNumber() => RegExp(r'(^[0-9]{9,10}$)').hasMatch(this ?? '');
 
-  bool isValidPassword() => RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~)\%\-(_+=/?^]).{6,}$').hasMatch(this ?? '');
+  bool isValidPassword() =>
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~)\%\-(_+=/?^]).{6,}$').hasMatch(this ?? '');
 
-  bool isValidEmail() => RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this ?? '');
+  bool isValidEmail() =>
+      RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this ?? '');
 
   bool isNumeric() => num.tryParse(this ?? '') != null;
 
   String parseDateDDMMMYYYY() {
     var parsed = DateTime.tryParse(this ?? '');
     if (parsed != null) {
-      return DateFormat("dd MMM yyyy").format(parsed);
+      return DateFormat('dd MMM yyyy').format(parsed);
     }
     return '';
   }
@@ -112,10 +107,10 @@ extension DateTimeParsing on DateTime {
 }
 
 extension BytesExt on int {
-  static final rate = 1024;
+  static const rate = 1024;
 
   double toMb() {
-    return (this/rate)/rate;
+    return (this / rate) / rate;
   }
 }
 

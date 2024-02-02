@@ -17,19 +17,19 @@ Future<void> init(EnvironmentType type) async {
 
   // Setup hostURL for API call in services
   switch (type) {
-    case EnvironmentType.PRODUCTION:
+    case EnvironmentType.production:
       {
-        BaseServices.hostUrl = ProductionConstant.API_ENDPOINT;
+        BaseServices.hostUrl = ProductionConstant.apiEndpoint;
       }
       break;
-    case EnvironmentType.STAGING:
+    case EnvironmentType.staging:
       {
-        BaseServices.hostUrl = StagingConstant.API_ENDPOINT;
+        BaseServices.hostUrl = StagingConstant.apiEndpoint;
       }
       break;
-    case EnvironmentType.DEVELOPMENT:
+    case EnvironmentType.development:
       {
-        BaseServices.hostUrl = DevelopmentConstant.API_ENDPOINT;
+        BaseServices.hostUrl = DevelopmentConstant.apiEndpoint;
       }
       break;
   }

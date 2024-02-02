@@ -36,7 +36,7 @@ class UserModel {
     return data;
   }
 
-  String getStringValue(dynamic? jsonValue) =>
+  String getStringValue(dynamic jsonValue) =>
       jsonValue != null ? jsonValue.toString() : '';
 
   String? id;

@@ -53,5 +53,5 @@ class ErrorModel {
   String? error;
   String? errorDescription;
 
-  bool forbidden() => errorCode == HttpErrorCode.UNAUTHORIZED || errorCode == HttpErrorCode.FORBIDDEN;
+  bool forbidden() => errorCode == HttpErrorCode.unauthorized || errorCode == HttpErrorCode.forbidden;
 }
