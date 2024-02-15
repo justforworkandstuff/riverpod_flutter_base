@@ -30,6 +30,7 @@ class App extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: S.delegate.supportedLocales,
-        home: Scaffold(appBar: AppBar(title: const Text('Example')), body: const ToDoPage()));
+        // TODO: Should update the [title] to the name of the application
+        home: Scaffold(appBar: AppBar(title: const Text('Dumb dumb')), body: const ToDoPage()));
   }
 }

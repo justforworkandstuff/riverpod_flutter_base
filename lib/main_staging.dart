@@ -5,7 +5,8 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:dumbdumb_flutter_app/app/assets/app_options.dart';
+import 'package:dumbdumb_flutter_app/app/assets/enums.dart';
+import 'package:dumbdumb_flutter_app/app/service/providers/app_options_providers.dart';
 import 'package:dumbdumb_flutter_app/app/utils/starter_handler.dart';
 import 'package:dumbdumb_flutter_app/app/view/app.dart';
 import 'package:flutter/material.dart';
@@ -20,5 +21,7 @@ Future<void> main() async {
       // For widgets to be able to read providers, we need to wrap the entire
       // application in a "ProviderScope" widget.
       // This is where the state of our providers will be stored.
-      const ProviderScope(child: App()));
+      ProviderScope(
+          overrides: [currentFlavourProvider.overrideWith((ref) => EnvironmentType.staging)],
+          child: const App()));
 }

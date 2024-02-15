@@ -1,5 +1,5 @@
 import 'package:dumbdumb_flutter_app/app/model/itemModel/item_model.dart';
-import 'package:dumbdumb_flutter_app/app/providers/providers.dart';
+import 'package:dumbdumb_flutter_app/app/service/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

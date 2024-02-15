@@ -12,6 +12,3 @@ class StagingConstant {
 class ProductionConstant {
   static const String apiEndpoint = 'YOUR API ENDPOINT';
 }
-
-/// Define the type of environment supported in this project
-enum EnvironmentType { production, staging, development }

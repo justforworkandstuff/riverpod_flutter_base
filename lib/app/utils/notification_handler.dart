@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dumbdumb_flutter_app/app/assets/app_options.dart';
+import 'package:dumbdumb_flutter_app/app/assets/enums.dart';
 import 'package:dumbdumb_flutter_app/app/assets/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
