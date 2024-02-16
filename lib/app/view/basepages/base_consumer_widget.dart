@@ -1,6 +1,6 @@
 import 'package:dumbdumb_flutter_app/app/assets/importers/importer_general.dart';
 
-class BaseConsumerWidget extends ConsumerWidget {
+abstract class BaseConsumerWidget extends ConsumerWidget {
   const BaseConsumerWidget({super.key});
 
   /// Common attributes
@@ -15,7 +15,7 @@ class BaseConsumerWidget extends ConsumerWidget {
 
   BottomNavigationBar? bottomNavigationBar() => null;
 
-  Widget body() => const SizedBox.shrink();
+  Widget body(BuildContext context, WidgetRef ref);
 
   /// Each Page are meant to be build with a [Scaffold] structure
   /// include with [AppBar], [Body], [FloatingActionButton]
@@ -32,7 +32,7 @@ class BaseConsumerWidget extends ConsumerWidget {
         },
         child: Scaffold(
           appBar: appbar(),
-          body: SafeArea(top: isTopSafeAreaEnabled(), bottom: isBottomSafeAreaEnabled(), child: body()),
+          body: SafeArea(top: isTopSafeAreaEnabled(), bottom: isBottomSafeAreaEnabled(), child: body(context, ref)),
           floatingActionButton: floatingActionButton(),
           resizeToAvoidBottomInset: true,
           bottomNavigationBar: bottomNavigationBar(),

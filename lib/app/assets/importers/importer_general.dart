@@ -9,3 +9,4 @@ export 'dart:convert';
 export 'package:flutter_localizations/flutter_localizations.dart';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
 export 'package:freezed_annotation/freezed_annotation.dart';
+export 'package:go_router/go_router.dart';

@@ -5,10 +5,9 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
+import 'package:dumbdumb_flutter_app/app/assets/app_router.dart';
 import 'package:dumbdumb_flutter_app/app/assets/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/assets/importers/importer_screens.dart';
 import 'package:dumbdumb_flutter_app/app/assets/importers/importer_structural.dart';
-
 
 /// Extend ConsumerWidget instead of StatelessWidget, which is exposed by Riverpod
 class App extends ConsumerWidget {
@@ -16,21 +15,34 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
-          colorScheme: ColorScheme.fromSwatch(
-            accentColor: const Color(0xFF13B9FF),
-          ),
+    return MaterialApp.router(
+      // TODO: Should update the [title] to the name of the application
+      /// This affects the app's background title name
+      title: 'Dumb dumb',
+      /// Disables scaling of app's textSize based on device settings
+      builder: (context, child) {
+        final mediaQueryData = MediaQuery.of(context);
+        final scale = mediaQueryData.textScaler.clamp();
+        return MediaQuery(data: mediaQueryData.copyWith(textScaler: scale), child: child ?? const SizedBox.shrink());
+      },
+      // TODO: Should customize app's own theme colour
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSwatch(
+          accentColor: const Color(0xFF13B9FF),
         ),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        // TODO: Should update the [title] to the name of the application
-        home: Scaffold(appBar: AppBar(title: const Text('Dumb dumb')), body: const ToDoPage()));
+      ),
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      routerDelegate: router.routerDelegate,
+    );
   }
 }

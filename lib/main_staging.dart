@@ -5,12 +5,11 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:dumbdumb_flutter_app/app/assets/enums.dart';
+import 'package:dumbdumb_flutter_app/app/assets/importers/importer_general.dart';
+import 'package:dumbdumb_flutter_app/app/assets/importers/importer_model.dart';
+import 'package:dumbdumb_flutter_app/app/assets/importers/importer_screens.dart';
 import 'package:dumbdumb_flutter_app/app/service/providers/app_options_providers.dart';
 import 'package:dumbdumb_flutter_app/app/utils/starter_handler.dart';
-import 'package:dumbdumb_flutter_app/app/view/app.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   // An init() Function to perform all required initial configuration before app start running
@@ -22,6 +21,5 @@ Future<void> main() async {
       // application in a "ProviderScope" widget.
       // This is where the state of our providers will be stored.
       ProviderScope(
-          overrides: [currentFlavourProvider.overrideWith((ref) => EnvironmentType.staging)],
-          child: const App()));
+          overrides: [currentFlavourProvider.overrideWith((ref) => EnvironmentType.staging)], child: const App()));
 }

@@ -3,14 +3,14 @@ import 'package:dumbdumb_flutter_app/app/service/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DisplayPage extends StatefulWidget {
-  const DisplayPage({super.key});
+class NetworkPage extends StatefulWidget {
+  const NetworkPage({super.key});
 
   @override
-  State<DisplayPage> createState() => _DisplayPageState();
+  State<NetworkPage> createState() => _NetworkPageState();
 }
 
-class _DisplayPageState extends State<DisplayPage> {
+class _NetworkPageState extends State<NetworkPage> {
   @override
   Widget build(BuildContext context) {
     return Center(child: Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) {

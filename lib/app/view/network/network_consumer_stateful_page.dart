@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// We extend ConsumerStatefulWidget.
 /// This is the equivalent of "Consumer" + "StatefulWidget".
-class DisplayConsumerStatefulPage extends ConsumerStatefulWidget {
-  const DisplayConsumerStatefulPage({super.key});
+class NetworkConsumerStatefulPage extends ConsumerStatefulWidget {
+  const NetworkConsumerStatefulPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeState();
@@ -14,7 +14,7 @@ class DisplayConsumerStatefulPage extends ConsumerStatefulWidget {
 
 /// Notice how instead of "State", we are extending "ConsumerState".
 /// This uses the same principle as "ConsumerWidget" vs "StatelessWidget".
-class _HomeState extends ConsumerState<DisplayConsumerStatefulPage> {
+class _HomeState extends ConsumerState<NetworkConsumerStatefulPage> {
   @override
   void initState() {
     super.initState();

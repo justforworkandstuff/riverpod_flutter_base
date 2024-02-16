@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// We subclassed "ConsumerWidget" instead of "StatelessWidget".
 /// This is equivalent to making a "StatelessWidget" and retuning "Consumer".
-class DisplayConsumerPage extends ConsumerWidget {
-  const DisplayConsumerPage({super.key});
+class NetworkConsumerPage extends ConsumerWidget {
+  const NetworkConsumerPage({super.key});
 
   @override
   /// Notice how "build" now receives an extra parameter: "ref"
