@@ -5,5 +5,6 @@
   "counter": "Counter",
   "todo": "To-Do",
   "network": "Network",
-  "home": "Home"
+  "home": "Home",
+  "counterText": "You have pushed this button this many times:"
 }

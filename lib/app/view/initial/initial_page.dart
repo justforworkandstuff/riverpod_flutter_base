@@ -12,7 +12,7 @@ class InitialPage extends BaseConsumerWidget {
 
     return Center(
       child: ListView.builder(
-        itemCount: 3,
+        itemCount: itemList.length,
         itemBuilder: (context, index) {
           return InkWell(
               onTap: () => _actionNavigate(context, itemList[index].navigationPath),

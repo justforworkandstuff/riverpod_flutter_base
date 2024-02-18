@@ -119,6 +119,16 @@ class S {
       args: [],
     );
   }
+
+  /// `You have pushed this button this many times:`
+  String get counterText {
+    return Intl.message(
+      'You have pushed this button this many times:',
+      name: 'counterText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

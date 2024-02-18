@@ -11,7 +11,7 @@ abstract class BaseConsumerWidget extends ConsumerWidget {
   /// Common widgets
   AppBar? appBar() => null;
 
-  Widget? floatingActionButton() => null;
+  Widget? floatingActionButton(WidgetRef ref) => null;
 
   BottomNavigationBar? bottomNavigationBar() => null;
 
@@ -33,7 +33,7 @@ abstract class BaseConsumerWidget extends ConsumerWidget {
         child: Scaffold(
           appBar: appBar(),
           body: SafeArea(top: isTopSafeAreaEnabled(), bottom: isBottomSafeAreaEnabled(), child: body(context, ref)),
-          floatingActionButton: floatingActionButton(),
+          floatingActionButton: floatingActionButton(ref),
           resizeToAvoidBottomInset: true,
           bottomNavigationBar: bottomNavigationBar(),
         ),
