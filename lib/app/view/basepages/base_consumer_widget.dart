@@ -9,7 +9,7 @@ abstract class BaseConsumerWidget extends ConsumerWidget {
   bool isBottomSafeAreaEnabled() => true;
 
   /// Common widgets
-  AppBar? appbar() => null;
+  AppBar? appBar() => null;
 
   Widget? floatingActionButton() => null;
 
@@ -31,7 +31,7 @@ abstract class BaseConsumerWidget extends ConsumerWidget {
           return true;
         },
         child: Scaffold(
-          appBar: appbar(),
+          appBar: appBar(),
           body: SafeArea(top: isTopSafeAreaEnabled(), bottom: isBottomSafeAreaEnabled(), child: body(context, ref)),
           floatingActionButton: floatingActionButton(),
           resizeToAvoidBottomInset: true,

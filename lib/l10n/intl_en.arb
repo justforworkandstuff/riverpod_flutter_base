@@ -1,5 +1,9 @@
 {
   "textOk": "OK",
   "errorTitle": "Error",
-  "loginTitle": "Login"
+  "loginTitle": "Login",
+  "counter": "Counter",
+  "todo": "To-Do",
+  "network": "Network",
+  "home": "Home"
 }

@@ -79,6 +79,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Counter`
+  String get counter {
+    return Intl.message(
+      'Counter',
+      name: 'counter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To-Do`
+  String get todo {
+    return Intl.message(
+      'To-Do',
+      name: 'todo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network`
+  String get network {
+    return Intl.message(
+      'Network',
+      name: 'network',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get home {
+    return Intl.message(
+      'Home',
+      name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
