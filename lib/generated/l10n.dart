@@ -60,6 +60,16 @@ class S {
     );
   }
 
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Error`
   String get errorTitle {
     return Intl.message(
@@ -125,6 +135,26 @@ class S {
     return Intl.message(
       'You have pushed this button this many times:',
       name: 'counterText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Something went wrong, please try again later.`
+  String get generalError {
+    return Intl.message(
+      'Something went wrong, please try again later.',
+      name: 'generalError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New to do`
+  String get newToDo {
+    return Intl.message(
+      'New to do',
+      name: 'newToDo',
       desc: '',
       args: [],
     );

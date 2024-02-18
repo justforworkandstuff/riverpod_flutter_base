@@ -26,7 +26,7 @@ class CounterPage extends BaseConsumerWidget {
   }
 
   @override
-  Widget? floatingActionButton(WidgetRef ref) {
+  Widget? floatingActionButton(WidgetRef ref, BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [

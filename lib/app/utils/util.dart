@@ -9,30 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WidgetUtil {
-  static void showAlertDialog(
-      BuildContext context, String? title, String? content, List<Widget> actions, bool dismissible) {
-    showDialog<void>(
+  static Future<dynamic> showAlertDialog(BuildContext context,
+      {String? title, String? content, List<Widget>? actions, bool? dismissible = false, Widget? customWidget}) async {
+    return await showAdaptiveDialog<void>(
         context: context,
         barrierDismissible: dismissible,
-        builder: (BuildContext context) => Platform.isAndroid
-            ? getMaterialDialog(title, content, actions)
-            : getCupertinoDialog(title, content, actions));
-  }
-
-  static Widget getCupertinoDialog(String? title, String? content, List<Widget> actions) {
-    return CupertinoAlertDialog(
-      title: Text(title ?? ''),
-      content: Text(content ?? ''),
-      actions: actions,
-    );
-  }
-
-  static Widget getMaterialDialog(String? title, String? content, List<Widget> actions) {
-    return AlertDialog(
-      title: Text(title ?? ''),
-      content: Text(content ?? ''),
-      actions: actions,
-    );
+        builder: (BuildContext context) => AlertDialog.adaptive(
+            title: Text(title.toString()), content: customWidget ?? Text(content.toString()), actions: actions));
   }
 
   static Widget getDialogButton(String text, VoidCallback? onPressed) {
@@ -47,10 +30,8 @@ class WidgetUtil {
   static double getScaleFactor(BuildContext context) => min(MediaQuery.of(context).textScaler.scale(1.0), 1.0);
 
   static void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(text)))
-        .closed
-        .then((_) => ScaffoldMessenger.of(context).clearSnackBars());
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
 }
 
@@ -84,10 +65,10 @@ extension StringExt on String? {
   bool isValidPhoneNumber() => RegExp(r'(^[0-9]{9,10}$)').hasMatch(this ?? '');
 
   bool isValidPassword() =>
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~)\%\-(_+=/?^]).{6,}$').hasMatch(this ?? '');
+      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~)%\-(_+=/?^]).{6,}$').hasMatch(this ?? '');
 
   bool isValidEmail() =>
-      RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this ?? '');
+      RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this ?? '');
 
   bool isNumeric() => num.tryParse(this ?? '') != null;
 
