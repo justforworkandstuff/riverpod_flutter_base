@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dumbdumb_flutter_app/app/core/constants.dart';
 import 'package:dumbdumb_flutter_app/app/core/enums.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/model/error_model.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/model/token_model.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/error_model.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/token_model.dart';
 import 'package:dumbdumb_flutter_app/app/utils/util.dart';
 
-import '../features/network/model/my_response.dart';
+import '../common/model/my_response.dart';
 import '../utils/shared_preference_handler.dart';
 
 /// A base class to unified all the required common fields and functions

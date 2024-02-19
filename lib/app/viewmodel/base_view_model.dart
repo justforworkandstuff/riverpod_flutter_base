@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:dumbdumb_flutter_app/app/core/constants.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/model/error_model.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/model/my_response.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/error_model.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/my_response.dart';
 
 /// A base class to unified all the required common fields and functions
 /// Inherited with ChangeNotifier for Provider State Management
