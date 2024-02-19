@@ -8,7 +8,8 @@ class UserModel with _$UserModel {
   const factory UserModel({
     String? id,
     String? name,
-    int? age
+    int? age,
+    String? image
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) => _$UserModelFromJson(json);

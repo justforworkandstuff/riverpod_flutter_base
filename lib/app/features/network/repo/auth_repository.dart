@@ -5,4 +5,9 @@ class AuthRepository {
   String? getUserImage() {
     return SharedPreferenceHandler.getUserImage();
   }
+
+  /// Example three: Post data to local source
+  void putUserImage(String userImage) {
+    SharedPreferenceHandler.putUserImage(userImage);
+  }
 }

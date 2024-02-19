@@ -9,5 +9,13 @@
   "home": "Home",
   "counterText": "You have pushed this button this many times:",
   "generalError": "Something went wrong, please try again later.",
-  "newToDo": "New to do"
+  "newToDo": "New to do",
+  "nameIs": "Name is: {value}",
+  "@nameIs": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -40,7 +40,7 @@ final GoRouter router = GoRouter(
         GoRoute(
             name: RouterPathNamed.networkPage,
             path: RouterPath.networkPage,
-            builder: (context, state) => const NetworkPage()
+            builder: (context, state) => const NetworkConsumerPage()
         ),
       ]
     ),

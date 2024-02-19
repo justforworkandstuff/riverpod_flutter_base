@@ -12,11 +12,17 @@ class UserController extends _$UserController {
     return await userService.getUser();
   }
 
-  void getUser() {
-
+  void getUser() async {
+    state = const AsyncValue.loading();
+    ref.invalidateSelf();
   }
 
-  void getUserImage() {
+  void getUserImage() async {
+    final UserService userService = UserService(ref: ref);
+    final previousState = await future;
 
+    /// Insert dummy network image to sharedPref, then retrieve it back later
+    state = AsyncData(
+        previousState?.copyWith(image: userService.getUserImage('https://randomuser.me/api/portraits/lego/7.jpg')));
   }
 }

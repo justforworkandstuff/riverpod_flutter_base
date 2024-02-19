@@ -23,7 +23,8 @@ class UserService {
     return await ref.read(userRepositoryProvider).getUser();
   }
 
-  String? getUserImage() {
+  String? getUserImage(String userImage) {
+    ref.read(authRepositoryProvider).putUserImage(userImage);
     return ref.read(authRepositoryProvider).getUserImage();
   }
 }

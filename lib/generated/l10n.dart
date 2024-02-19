@@ -159,6 +159,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Name is: {value}`
+  String nameIs(String value) {
+    return Intl.message(
+      'Name is: $value',
+      name: 'nameIs',
+      desc: '',
+      args: [value],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
