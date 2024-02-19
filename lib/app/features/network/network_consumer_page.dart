@@ -30,7 +30,7 @@ class NetworkConsumerPage extends BaseConsumerWidget {
                               radius: 30,
                               backgroundColor: Colors.white,
                               backgroundImage:
-                                  value?.image?.isNotEmpty == true ? NetworkImage(value?.image ?? '') : null),
+                                  value?.profileImage?.isNotEmpty == true ? NetworkImage(value?.profileImage ?? '') : null),
                         ),
                         const SizedBox(height: 100),
                         Container(alignment: Alignment.center, child: Text(S.current.nameIs(value?.name ?? ''))),

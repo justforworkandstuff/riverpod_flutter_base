@@ -23,6 +23,6 @@ class UserController extends _$UserController {
 
     /// Insert dummy network image to sharedPref, then retrieve it back later
     state = AsyncData(
-        previousState?.copyWith(image: userService.getUserImage('https://randomuser.me/api/portraits/lego/7.jpg')));
+        previousState?.copyWith(profileImage: userService.getUserImage('https://randomuser.me/api/portraits/lego/7.jpg')));
   }
 }

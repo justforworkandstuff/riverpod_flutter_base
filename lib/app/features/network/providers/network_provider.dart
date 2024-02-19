@@ -6,7 +6,7 @@ part 'network_provider.g.dart';
 
 @riverpod
 UserRepository userRepository(UserRepositoryRef ref) {
-  return UserRepository();
+  return UserRepository(ref: ref);
 }
 
 @riverpod
