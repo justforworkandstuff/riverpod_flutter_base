@@ -1,5 +1,5 @@
-import 'package:dumbdumb_flutter_app/app/assets/app_options.dart';
-import 'package:dumbdumb_flutter_app/app/assets/enums.dart';
+import 'package:dumbdumb_flutter_app/app/core/app_options.dart';
+import 'package:dumbdumb_flutter_app/app/core/enums.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 /// Necessary for code-generation to work
