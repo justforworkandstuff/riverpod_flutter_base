@@ -1,3 +1,4 @@
+import 'package:dumbdumb_flutter_app/app/common/model/my_response.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/providers/network_provider.dart';
@@ -20,11 +21,21 @@ class UserService {
   final Ref ref;
 
   Future<UserModel> getUser() async {
-    return await ref.read(userRepositoryProvider).getUser();
+    final response = await ref.read(userRepositoryProvider).getUser();
+    if (response.status == ResponseStatus.complete &&
+        response.data != null &&
+        jsonDecode(response.data) is Map<String, dynamic>) {
+      return UserModel.fromJson(jsonDecode(response.data));
+    }
+    // TODO: Think of a way to handle error state
+    return const UserModel();
   }
 
-  String? getUserImage(String userImage) {
-    ref.read(authRepositoryProvider).putUserImage(userImage);
+  Future<void> putUserImage(String userImage) async {
+    await ref.read(authRepositoryProvider).putUserImage(userImage);
+  }
+
+  String? getUserImage() {
     return ref.read(authRepositoryProvider).getUserImage();
   }
 }

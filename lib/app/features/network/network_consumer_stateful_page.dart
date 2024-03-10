@@ -1,43 +1,54 @@
-// import 'package:dumbdumb_flutter_app/app/model/itemModel/item_model.dart';
-// import 'package:dumbdumb_flutter_app/app/service/providers/providers.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
-//
-// /// We extend ConsumerStatefulWidget.
-// /// This is the equivalent of "Consumer" + "StatefulWidget".
-// class NetworkConsumerStatefulPage extends ConsumerStatefulWidget {
-//   const NetworkConsumerStatefulPage({super.key});
-//
-//   @override
-//   ConsumerState<ConsumerStatefulWidget> createState() => _HomeState();
-// }
-//
-// /// Notice how instead of "State", we are extending "ConsumerState".
-// /// This uses the same principle as "ConsumerWidget" vs "StatelessWidget".
-// class _HomeState extends ConsumerState<NetworkConsumerStatefulPage> {
-//   @override
-//   void initState() {
-//     super.initState();
-//
-//     /// State life-cycles have access to "ref" too.
-//     /// This enables things such as adding a listener on a specific provider
-//     /// to show dialogs/snackbars.
-//     ref.listenManual(getItemModelProvider, (previous, next) {
-//       // TODO show a snackbar/dialog
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     /// "ref" is not passed as parameter anymore, but is instead a property of "ConsumerState".
-//     /// We can therefore keep using "ref.watch" inside "build".
-//     final AsyncValue<ItemModel> itemModel = ref.watch(getItemModelProvider);
-//
-//     return Center(
-//         child: switch (itemModel) {
-//       AsyncData(:final value) => Text('Data is: ${value.activity}'),
-//       AsyncError() => const Text('Opps, something wrong happened.'),
-//       _ => const CircularProgressIndicator()
-//     });
-//   }
-// }
+import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
+import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/notifiers/user_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class NetworkConsumerStatefulWidget extends BaseConsumerStatefulWidget {
+  const NetworkConsumerStatefulWidget({super.key});
+
+  @override
+  BaseConsumerStatefulWidgetState createState() => _NetworkConsumerStatefulWidgetState();
+}
+
+class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetState<NetworkConsumerStatefulWidget> {
+  @override
+  Widget build(BuildContext context) {
+    /// We can use "ref.watch" inside our widget like we did using "Consumer"
+    final userModel = ref.watch(userControllerProvider);
+    return Center(
+      child: RefreshIndicator(
+          onRefresh: () async => ref.read(userControllerProvider.notifier).getUser(),
+          child: switch (userModel) {
+            AsyncData(:final value) => CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => ref.read(userControllerProvider.notifier).getUserImage(),
+                          child: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.white,
+                              backgroundImage: value?.profileImage?.isNotEmpty == true
+                                  ? NetworkImage(value?.profileImage ?? '')
+                                  : null),
+                        ),
+                        const SizedBox(height: 100),
+                        Container(alignment: Alignment.center, child: Text(S.current.nameIs(value?.name ?? ''))),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            AsyncError() => Text(S.current.generalError),
+            _ => const CircularProgressIndicator()
+          }),
+    );
+  }
+
+  @override
+  AppBar? appbar() => AppBar(title: Text(S.current.network), centerTitle: true);
+}

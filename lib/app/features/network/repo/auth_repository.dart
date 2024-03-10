@@ -7,7 +7,7 @@ class AuthRepository {
   }
 
   /// Example three: Post data to local source
-  void putUserImage(String userImage) {
-    SharedPreferenceHandler.putUserImage(userImage);
+  Future<bool?> putUserImage(String userImage) async {
+    return await SharedPreferenceHandler.putUserImage(userImage);
   }
 }

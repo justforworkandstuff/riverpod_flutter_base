@@ -16,8 +16,8 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      // TODO: Should update the [title] to the name of the application
       /// This affects the app's background title name
+      // TODO: Should update the [title] to the name of the application
       title: 'Dumb dumb',
       /// Disables scaling of app's textSize based on device settings
       builder: (context, child) {

@@ -9,6 +9,7 @@ class UserController extends _$UserController {
   @override
   FutureOr<UserModel?> build() async {
     final UserService userService = UserService(ref: ref);
+    await userService.putUserImage('https://randomuser.me/api/portraits/lego/7.jpg');
     return await userService.getUser();
   }
 
@@ -23,6 +24,6 @@ class UserController extends _$UserController {
 
     /// Insert dummy network image to sharedPref, then retrieve it back later
     state = AsyncData(
-        previousState?.copyWith(profileImage: userService.getUserImage('https://randomuser.me/api/portraits/lego/7.jpg')));
+        previousState?.copyWith(profileImage: userService.getUserImage()));
   }
 }

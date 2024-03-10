@@ -26,8 +26,28 @@ class SharedPreferenceHandler {
     // _sharedPreferences?.clear();
   }
 
-  static void putUser(String user) {
-    _sharedPreferences?.setString(spUser, user);
+  static Future<void> putAccessToken(String? token) async {
+    await _sharedPreferences?.setString(spAccessToken, token ?? '');
+  }
+
+  static Future<void> putRefreshToken(String? token) async {
+    await _sharedPreferences?.setString(spRefreshToken, token ?? '');
+  }
+
+  static Future<void> putUser(String user) async {
+    await _sharedPreferences?.setString(spUser, user);
+  }
+
+  static Future<bool?> putUserImage(String? userImage) async {
+    return await _sharedPreferences?.setString(spUserImage, userImage ?? '');
+  }
+
+  static String getAccessToken() {
+    return _sharedPreferences?.getString(spAccessToken) ?? '';
+  }
+
+  static String getRefreshToken() {
+    return _sharedPreferences?.getString(spRefreshToken) ?? '';
   }
 
   static UserModel? getUser() {
@@ -43,26 +63,6 @@ class SharedPreferenceHandler {
       debugPrint('error: $e');
     }
     return null;
-  }
-
-  static void putAccessToken(String? token) {
-    _sharedPreferences?.setString(spAccessToken, token ?? '');
-  }
-
-  static void putRefreshToken(String? token) {
-    _sharedPreferences?.setString(spRefreshToken, token ?? '');
-  }
-
-  static void putUserImage(String? userImage) {
-    _sharedPreferences?.setString(spUserImage, userImage ?? '');
-  }
-
-  static String getAccessToken() {
-    return _sharedPreferences?.getString(spAccessToken) ?? '';
-  }
-
-  static String getRefreshToken() {
-    return _sharedPreferences?.getString(spRefreshToken) ?? '';
   }
 
   static String getUserImage() {
