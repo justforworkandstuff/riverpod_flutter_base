@@ -13,13 +13,15 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_controller.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [currentFlavour])
+@Riverpod(keepAlive: true, dependencies: [authToken, refreshToken])
 class DioController extends _$DioController {
   @override
   Dio build() {
+    final authToken = ref.watch(authTokenProvider);
+    final refreshToken = ref.watch(refreshTokenProvider);
     final dioInstance = Dio(BaseOptions(headers: <String, String>{
-      // 'Content-Type': ContentType.json.value,
-      // if (authToken.isNotEmpty) 'Authorization': authToken
+      'Content-Type': ContentType.json.value,
+      if (authToken.isNotEmpty) 'Authorization': authToken
     }));
 
     dioInstance.interceptors.add(QueuedInterceptorsWrapper(onError: (error, handler) async {
@@ -28,15 +30,12 @@ class DioController extends _$DioController {
       if (error.response?.statusCode == HttpErrorCode.unauthorized ||
           error.response?.statusCode == HttpErrorCode.forbidden) {
         try {
-          // TODO: Re-add this
-          // final dynamic responseRefreshToken = await _refreshTokenAPI();
-          const dynamic responseRefreshToken = '';
+          final dynamic responseRefreshToken =
+              await _actionCallRefreshToken(ref.read(refreshTokenUrlProvider), refreshToken);
           final options = error.response!.requestOptions;
 
           if (responseRefreshToken is bool) {
-            // TODO: Re-add this
-            // options.headers['Authorization'] = authToken;
-            options.headers['Authorization'] = '';
+            options.headers['Authorization'] = authToken;
           }
 
           await Dio().fetch<dynamic>(options).then((r) {
@@ -54,12 +53,11 @@ class DioController extends _$DioController {
     return dioInstance;
   }
 
-  Future<dynamic> _actionCallRefreshToken(String refreshTokenUrl) async {
+  Future<dynamic> _actionCallRefreshToken(String refreshTokenUrl, String refreshToken) async {
     try {
       final response = await Dio().post<String>(
         refreshTokenUrl,
-        // TODO: To readd this back
-        options: Options(headers: <String, String>{'Authorization': 'refreshToken'}),
+        options: Options(headers: <String, String>{'Authorization': refreshToken}),
       );
 
       if (response.statusCode == HttpStatus.ok) {
@@ -71,7 +69,8 @@ class DioController extends _$DioController {
       return response.statusCode == HttpStatus.ok;
     } catch (e) {
       if (e is DioException) {
-        e.response?.data = ErrorModel(errorCode: e.response?.statusCode ?? HttpErrorCode.unhandledErrorCode,
+        e.response?.data = ErrorModel(
+            errorCode: e.response?.statusCode ?? HttpErrorCode.unhandledErrorCode,
             errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
             errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
             errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,

@@ -1,5 +1,6 @@
 import 'package:dumbdumb_flutter_app/app/core/app_options.dart';
 import 'package:dumbdumb_flutter_app/app/core/enums.dart';
+import 'package:dumbdumb_flutter_app/app/utils/shared_preference_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 /// Necessary for code-generation to work
@@ -23,4 +24,14 @@ String refreshTokenUrl(RefreshTokenUrlRef ref) {
     default:
       return '';
   }
+}
+
+@Riverpod(keepAlive: true, dependencies: [])
+String authToken(AuthTokenRef ref) {
+  return SharedPreferenceHandler.getAccessToken();
+}
+
+@Riverpod(keepAlive: true, dependencies: [])
+String refreshToken(RefreshTokenRef ref) {
+  return SharedPreferenceHandler.getAccessToken();
 }
