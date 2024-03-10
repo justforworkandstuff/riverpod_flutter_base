@@ -71,7 +71,7 @@ class DioController extends _$DioController {
       return response.statusCode == HttpStatus.ok;
     } catch (e) {
       if (e is DioException) {
-        e.response?.data = ErrorModel(e.response?.statusCode ?? HttpErrorCode.none,
+        e.response?.data = ErrorModel(errorCode: e.response?.statusCode ?? HttpErrorCode.unhandledErrorCode,
             errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
             errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
             errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,

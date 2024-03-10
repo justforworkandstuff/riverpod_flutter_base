@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dumbdumb_flutter_app/app/core/constants.dart';
-import 'package:dumbdumb_flutter_app/app/core/enums.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/error_model.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/token_model.dart';
+import 'package:dumbdumb_flutter_app/app/core/constants.dart';
+import 'package:dumbdumb_flutter_app/app/core/enums.dart';
 import 'package:dumbdumb_flutter_app/app/utils/util.dart';
 
 import '../common/model/my_response.dart';
@@ -13,8 +13,9 @@ import '../utils/shared_preference_handler.dart';
 
 /// A base class to unified all the required common fields and functions
 class BaseServices {
-
-  BaseServices() { _init(); }
+  BaseServices() {
+    _init();
+  }
 
   static BaseServices? _instance;
   static String? hostUrl;
@@ -23,6 +24,7 @@ class BaseServices {
 
   /// private access dio instance and accessible using dio() getter
   Dio? _dio;
+
   /// eg: single dio instance will created and reuse by all services.
   /// remove the needs to create new Dio() instance in every services
   Dio? get dio {
@@ -53,7 +55,7 @@ class BaseServices {
     _instance = this;
     _dio = Dio(BaseOptions(headers: <String, String>{
       'Content-Type': ContentType.json.value,
-      if(authToken.isNotEmpty) 'Authorization': authToken
+      if (authToken.isNotEmpty) 'Authorization': authToken
     }));
 
     _dio?.interceptors.add(QueuedInterceptorsWrapper(onError: (error, handler) async {
@@ -77,7 +79,7 @@ class BaseServices {
           }
         }
       }
-      if(!handler.isCompleted) return handler.reject(error);
+      if (!handler.isCompleted) return handler.reject(error);
     }));
   }
 
@@ -98,12 +100,11 @@ class BaseServices {
     } catch (e) {
       if (e is DioException) {
         e.response?.data = ErrorModel(
-            e.response?.statusCode ?? HttpErrorCode.none,
+            errorCode: e.response?.statusCode ?? HttpErrorCode.unhandledErrorCode,
             errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
             errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
             errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,
-            error: e.error as String
-        );
+            error: e.error as String);
       }
       return e;
     }
@@ -113,18 +114,22 @@ class BaseServices {
   /// Respond with MyResponse object for consistent data/error handling in services layer
   /// Accessible by all inheriting classes
   Future<MyResponse> callAPI(HttpRequestType requestType, String path,
-      { Map<String, dynamic>? postBody, Options? options}) async {
+      {Map<String, dynamic>? postBody, Options? options}) async {
     try {
       dio?.options.contentType = Headers.jsonContentType;
       Response? response;
 
-      switch(requestType) {
-        case HttpRequestType.get: {
-          response = await dio?.get(path);
-        } break;
-        case HttpRequestType.post: {
-          response = await dio?.post(path, data: postBody);
-        } break;
+      switch (requestType) {
+        case HttpRequestType.get:
+          {
+            response = await dio?.get(path);
+          }
+          break;
+        case HttpRequestType.post:
+          {
+            response = await dio?.post(path, data: postBody);
+          }
+          break;
         case HttpRequestType.put:
           response = await dio?.put(path, data: postBody);
           break;
@@ -133,11 +138,11 @@ class BaseServices {
           break;
       }
 
-      if(response?.statusCode == HttpStatus.ok) {
+      if (response?.statusCode == HttpStatus.ok) {
         return MyResponse.complete(JsonParsing(response?.data).toJson());
       }
-    } catch(e) {
-      if(e is DioException && e.response?.data != null) {
+    } catch (e) {
+      if (e is DioException && e.response?.data != null) {
         return MyResponse.error(JsonParsing(e.response?.data).toJson());
       }
       return MyResponse.error(e);

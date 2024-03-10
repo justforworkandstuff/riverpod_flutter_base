@@ -1,6 +1,5 @@
-import 'package:dumbdumb_flutter_app/app/common/model/my_response.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
+import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/providers/network_provider.dart';
 
 /// Service is a class that helps in promoting the separation of concerns within the project
@@ -20,15 +19,16 @@ class UserService {
 
   final Ref ref;
 
-  Future<UserModel> getUser() async {
+  Future<dynamic> getUser() async {
     final response = await ref.read(userRepositoryProvider).getUser();
     if (response.status == ResponseStatus.complete &&
         response.data != null &&
         jsonDecode(response.data) is Map<String, dynamic>) {
       return UserModel.fromJson(jsonDecode(response.data));
+    } else if (response.status == ResponseStatus.error && response.error != null) {
+      throw CustomException(ErrorModel.fromJson(jsonDecode(response.error)));
     }
-    // TODO: Think of a way to handle error state
-    return const UserModel();
+    throw CustomException(ErrorModel.unhandledError);
   }
 
   Future<void> putUserImage(String userImage) async {

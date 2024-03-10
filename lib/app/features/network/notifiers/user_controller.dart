@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
+import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/service/user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,7 +14,7 @@ class UserController extends _$UserController {
   }
 
   void getUser() async {
-    state = const AsyncValue.loading();
+    /// Will mark current state as dirty and recall build() method's actions
     ref.invalidateSelf();
   }
 
@@ -23,7 +23,6 @@ class UserController extends _$UserController {
     final previousState = await future;
 
     /// Insert dummy network image to sharedPref, then retrieve it back later
-    state = AsyncData(
-        previousState?.copyWith(profileImage: userService.getUserImage()));
+    state = AsyncData(previousState?.copyWith(profileImage: userService.getUserImage()));
   }
 }

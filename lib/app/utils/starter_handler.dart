@@ -14,29 +14,29 @@ Future<void> init(EnvironmentType type) async {
 
   //Setting up sharedPreference instance
   await SharedPreferenceHandler.getSharedPreference();
-
-  // Setup hostURL for API call in services
-  switch (type) {
-    case EnvironmentType.production:
-      {
-        BaseServices.hostUrl = ProductionConstant.apiEndpoint;
-      }
-      break;
-    case EnvironmentType.staging:
-      {
-        BaseServices.hostUrl = StagingConstant.apiEndpoint;
-      }
-      break;
-    case EnvironmentType.development:
-      {
-        BaseServices.hostUrl = DevelopmentConstant.apiEndpoint;
-      }
-      break;
-  }
-
-  // Initialize Firebase Configurations
-  await NotificationHandler.getInstance(type);
-
-  // Pass all uncaught errors from the framework to Crashlytics.
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  //
+  // // Setup hostURL for API call in services
+  // switch (type) {
+  //   case EnvironmentType.production:
+  //     {
+  //       BaseServices.hostUrl = ProductionConstant.apiEndpoint;
+  //     }
+  //     break;
+  //   case EnvironmentType.staging:
+  //     {
+  //       BaseServices.hostUrl = StagingConstant.apiEndpoint;
+  //     }
+  //     break;
+  //   case EnvironmentType.development:
+  //     {
+  //       BaseServices.hostUrl = DevelopmentConstant.apiEndpoint;
+  //     }
+  //     break;
+  // }
+  //
+  // // Initialize Firebase Configurations
+  // await NotificationHandler.getInstance(type);
+  //
+  // // Pass all uncaught errors from the framework to Crashlytics.
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 }

@@ -1,28 +1,30 @@
 import 'package:dumbdumb_flutter_app/app/core/constants.dart';
+import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
 
 class ErrorModel {
-  ErrorModel(this.errorCode,
-      {this.errorMessage,
-      this.errorCodeDescription,
-      this.error,
-      this.errorDescription});
+  const ErrorModel(
+      {required this.errorCode, this.errorMessage, this.errorCodeDescription, this.error, this.errorDescription});
 
-  ErrorModel.fromJson(Map<String, dynamic> json) {
-    errorCode = int.tryParse(json['errorCode'].toString()) ?? 0;
-    errorMessage = json['errorMessage'] != null ? json['errorMessage'].toString() : '';
-    errorCodeDescription = json['errorCodeDescription'] != null ? json['errorCodeDescription'].toString() : '';
-    error = json['error'] != null ? json['error'].toString() : '';
-    errorDescription = json['error_description'] != null ? json['error_description'].toString() : '';
+  static ErrorModel unhandledError =
+      ErrorModel(errorCode: HttpErrorCode.unhandledErrorCode, errorMessage: S.current.generalError);
+
+  factory ErrorModel.fromJson(Map<String, dynamic> json) {
+    return ErrorModel(
+        errorCode: int.tryParse(json['statusCode'].toString()) ?? 0,
+        errorMessage: json['message'] != null ? json['message'].toString() : '',
+        errorCodeDescription: json['errorCode'] != null ? json['errorCode'].toString() : '',
+        error: json['error'] != null ? json['error'].toString() : '',
+        errorDescription: json['errorDescription'] != null ? json['errorDescription'].toString() : '');
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['errorCode'] = errorCode;
-    data['errorMessage'] = errorMessage;
-    data['errorCodeDescription'] = errorCodeDescription;
-    data['error'] = error;
-    data['error_description'] = errorDescription;
-    return data;
+    return <String, dynamic>{
+      'statusCode': errorCode,
+      'message': errorMessage,
+      'errorCode': errorCodeDescription,
+      'error': error,
+      'errorDescription': errorDescription
+    };
   }
 
   String? getErrorMessageTitle() {
@@ -43,15 +45,18 @@ class ErrorModel {
     return null;
   }
 
-  int? errorCode;
+  final int? errorCode;
 
-  /// error from api response failure
-  String? errorMessage;
-  String? errorCodeDescription;
+  /// Error from api response failure
+  final String? errorMessage;
+  final String? errorCodeDescription;
 
-  /// error from server common failure
-  String? error;
-  String? errorDescription;
+  /// Error from server common failure
+  final String? error;
+  final String? errorDescription;
 
   bool forbidden() => errorCode == HttpErrorCode.unauthorized || errorCode == HttpErrorCode.forbidden;
+
+  @override
+  String toString() => '${getErrorMessageTitle()}: ${getErrorMessage()}';
 }
