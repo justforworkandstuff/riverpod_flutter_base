@@ -34,8 +34,8 @@ class SharedPreferenceHandler {
     return await _sharedPreferences?.setString(spRefreshToken, token ?? '');
   }
 
-  static Future<void> putUser(String user) async {
-    await _sharedPreferences?.setString(spUser, user);
+  static Future<bool?> putUser(String user) async {
+    return await _sharedPreferences?.setString(spUser, user);
   }
 
   static Future<bool?> putUserImage(String? userImage) async {

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dumbdumb_flutter_app/app/common/model/my_response.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/my_response_model.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/token_model.dart';
 import 'package:dumbdumb_flutter_app/app/core/constants.dart';
 import 'package:dumbdumb_flutter_app/app/core/enums.dart';
