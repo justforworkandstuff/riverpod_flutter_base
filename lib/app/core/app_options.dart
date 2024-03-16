@@ -3,15 +3,13 @@
 /// Call/perform initialization action in [starter_handler.init] method.
 class DevelopmentConstant {
   static const String apiEndpoint = 'Your apiEndpoint';
-  static const String refreshTokenUrl = 'Your refreshTokenUrl';
 }
 
+// TODO: Remove this after done with testing
 class StagingConstant {
-  static const String apiEndpoint = 'Your apiEndpoint';
-  static const String refreshTokenUrl = 'Your refreshTokenUrl';
+  static const String apiEndpoint = 'https://evsuperapp-staging.agmostudio.com';
 }
 
 class ProductionConstant {
   static const String apiEndpoint = 'Your apiEndpoint';
-  static const String refreshTokenUrl = 'Your refreshTokenUrl';
 }

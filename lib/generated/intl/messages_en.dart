@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "loginTitle": MessageLookupByLibrary.simpleMessage("Login"),
         "nameIs": m0,
         "network": MessageLookupByLibrary.simpleMessage("Network"),
+        "networkWithRefreshToken":
+            MessageLookupByLibrary.simpleMessage("Network (Refresh Token)"),
         "newToDo": MessageLookupByLibrary.simpleMessage("New to do"),
         "textOk": MessageLookupByLibrary.simpleMessage("OK"),
         "todo": MessageLookupByLibrary.simpleMessage("To-Do")

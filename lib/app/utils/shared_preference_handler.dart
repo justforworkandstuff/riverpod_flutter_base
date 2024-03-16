@@ -26,12 +26,12 @@ class SharedPreferenceHandler {
     // _sharedPreferences?.clear();
   }
 
-  static Future<void> putAccessToken(String? token) async {
-    await _sharedPreferences?.setString(spAccessToken, token ?? '');
+  static Future<bool?> putAccessToken(String? token) async {
+    return await _sharedPreferences?.setString(spAccessToken, token ?? '');
   }
 
-  static Future<void> putRefreshToken(String? token) async {
-    await _sharedPreferences?.setString(spRefreshToken, token ?? '');
+  static Future<bool?> putRefreshToken(String? token) async {
+    return await _sharedPreferences?.setString(spRefreshToken, token ?? '');
   }
 
   static Future<void> putUser(String user) async {

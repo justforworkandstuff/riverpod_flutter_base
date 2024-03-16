@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dumbdumb_flutter_app/app/common/model/error_model.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/my_response.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/token_model.dart';
 import 'package:dumbdumb_flutter_app/app/core/constants.dart';
@@ -13,38 +13,40 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_controller.g.dart';
 
-@Riverpod(keepAlive: true, dependencies: [authToken, refreshToken])
+@Riverpod(keepAlive: true, dependencies: [])
 class DioController extends _$DioController {
+  Completer<String>? _refreshTokenCompleter;
+
   @override
   Dio build() {
-    final authToken = ref.watch(authTokenProvider);
-    final refreshToken = ref.watch(refreshTokenProvider);
-    final dioInstance = Dio(BaseOptions(headers: <String, String>{
-      'Content-Type': ContentType.json.value,
-      if (authToken.isNotEmpty) 'Authorization': authToken
-    }));
-
-    dioInstance.interceptors.add(QueuedInterceptorsWrapper(onError: (error, handler) async {
+    final dioInstance = Dio(ApiConstants.customOptions);
+    dioInstance.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      if (options.headers.containsKey('Authorization') && SharedPreferenceHandler.getAccessToken().isNotEmpty) {
+        options.headers['Authorization'] = 'Bearer ${SharedPreferenceHandler.getAccessToken()}';
+      }
+      return handler.next(options);
+    }, onError: (error, handler) async {
       /// Access Token is considered expired when API return code 401/403
       /// Subject to change depends on backend configuration
       if (error.response?.statusCode == HttpErrorCode.unauthorized ||
           error.response?.statusCode == HttpErrorCode.forbidden) {
         try {
-          final dynamic responseRefreshToken =
-              await _actionCallRefreshToken(ref.read(refreshTokenUrlProvider), refreshToken);
           final options = error.response!.requestOptions;
+          final dynamic responseRefreshToken = await getRefreshToken(ref.read(refreshTokenUrlProvider));
 
-          if (responseRefreshToken is bool) {
-            options.headers['Authorization'] = authToken;
+          /// Token update failed
+          if (responseRefreshToken is String && responseRefreshToken.isEmpty) {
+            return handler.reject(error);
           }
 
-          await Dio().fetch<dynamic>(options).then((r) {
-            return handler.resolve(r);
-          }, onError: (e) => handler.reject(e));
+          /// If token update success, proceed with requesting the api again
+          options.headers['Authorization'] = 'Bearer ${SharedPreferenceHandler.getAccessToken()}';
+          await Dio(ApiConstants.customOptions)
+              .fetch(options)
+              .then(handler.resolve)
+              .catchError((e) => handler.reject(e as DioException));
         } catch (e) {
-          if (e is DioException) {
-            return handler.reject(e);
-          }
+          return handler.reject(DioException(requestOptions: error.response!.requestOptions));
         }
       }
       if (!handler.isCompleted) return handler.reject(error);
@@ -53,36 +55,41 @@ class DioController extends _$DioController {
     return dioInstance;
   }
 
-  Future<dynamic> _actionCallRefreshToken(String refreshTokenUrl, String refreshToken) async {
-    try {
-      final response = await Dio().post<String>(
-        refreshTokenUrl,
-        options: Options(headers: <String, String>{'Authorization': refreshToken}),
-      );
+  Future<String> getRefreshToken(String refreshTokenUrl) async {
+    if (_refreshTokenCompleter != null) return _refreshTokenCompleter!.future;
 
+    final completer = _refreshTokenCompleter = Completer();
+    try {
+      final token = await _actionCallRefreshToken(refreshTokenUrl);
+      completer.complete(token);
+      return token;
+    } catch (ex, stacktrace) {
+      completer.completeError(ex, stacktrace);
+      return '';
+    }
+  }
+
+  Future<dynamic> _actionCallRefreshToken(String refreshTokenUrl) async {
+    try {
+      final response = await Dio(ApiConstants.customOptions).post<String>(
+        refreshTokenUrl,
+        options:
+            Options(headers: <String, String>{'Authorization': 'Bearer ${SharedPreferenceHandler.getRefreshToken()}'}),
+      );
       if (response.statusCode == HttpStatus.ok) {
         final tokenModel = TokenModel.fromJson(json.decode(response.data ?? '') as Map<String, dynamic>);
 
         SharedPreferenceHandler.putAccessToken(tokenModel.accessToken);
         SharedPreferenceHandler.putRefreshToken(tokenModel.refreshToken);
       }
-      return response.statusCode == HttpStatus.ok;
+      return SharedPreferenceHandler.getAccessToken();
     } catch (e) {
-      if (e is DioException) {
-        e.response?.data = ErrorModel(
-            errorCode: e.response?.statusCode ?? HttpErrorCode.unhandledErrorCode,
-            errorMessage: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorMessage,
-            errorCodeDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).errorCodeDescription,
-            errorDescription: ErrorModel.fromJson(jsonDecode(e.response?.data)).error,
-            error: e.error as String);
-      }
       return e;
     }
   }
 
   /// Standardized api calling with try-catch block
-  /// Respond with MyResponse object for consistent data/error handling in services layer
-  /// Accessible by all inheriting classes
+  /// Respond with MyResponse object for consistent data/error handling in services layer.
   Future<MyResponse> callAPI(HttpRequestType requestType, String path,
       {Map<String, dynamic>? postBody, Options? options}) async {
     try {

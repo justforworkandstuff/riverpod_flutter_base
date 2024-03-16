@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:dumbdumb_flutter_app/app/core/app_options.dart';
 import 'package:dumbdumb_flutter_app/app/core/enums.dart';
-import 'package:dumbdumb_flutter_app/app/utils/shared_preference_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 /// Necessary for code-generation to work
@@ -12,26 +13,23 @@ EnvironmentType currentFlavour(CurrentFlavourRef ref) {
 }
 
 @riverpod
-String refreshTokenUrl(RefreshTokenUrlRef ref) {
+String hostUrl(HostUrlRef ref) {
   final currentFlavour = ref.read(currentFlavourProvider);
   switch (currentFlavour) {
     case EnvironmentType.development:
-      return DevelopmentConstant.refreshTokenUrl;
+      return DevelopmentConstant.apiEndpoint;
     case EnvironmentType.staging:
-      return StagingConstant.refreshTokenUrl;
+      return StagingConstant.apiEndpoint;
     case EnvironmentType.production:
-      return ProductionConstant.refreshTokenUrl;
+      return ProductionConstant.apiEndpoint;
     default:
       return '';
   }
 }
 
-@Riverpod(keepAlive: true, dependencies: [])
-String authToken(AuthTokenRef ref) {
-  return SharedPreferenceHandler.getAccessToken();
-}
-
-@Riverpod(keepAlive: true, dependencies: [])
-String refreshToken(RefreshTokenRef ref) {
-  return SharedPreferenceHandler.getAccessToken();
+@riverpod
+String refreshTokenUrl(RefreshTokenUrlRef ref) {
+  final hostUrl = ref.read(hostUrlProvider);
+  const refreshTokenUrl = 'api/v1/auth/refreshToken';
+  return '$hostUrl/$refreshTokenUrl';
 }

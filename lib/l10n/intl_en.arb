@@ -7,6 +7,7 @@
   "todo": "To-Do",
   "network": "Network",
   "home": "Home",
+  "networkWithRefreshToken": "Network (Refresh Token)",
   "counterText": "You have pushed this button this many times:",
   "generalError": "Something went wrong, please try again later.",
   "newToDo": "New to do",

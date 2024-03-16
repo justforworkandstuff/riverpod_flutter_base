@@ -10,7 +10,8 @@ enum HttpRequestType { get, post, put, delete }
 enum HomePages {
   counter,
   todo,
-  network;
+  network,
+  networkWithRefreshToken;
 
   String get displayName {
     switch (this) {
@@ -20,6 +21,8 @@ enum HomePages {
         return S.current.todo;
       case HomePages.network:
         return S.current.network;
+      case HomePages.networkWithRefreshToken:
+        return S.current.networkWithRefreshToken;
     }
   }
 
@@ -31,6 +34,8 @@ enum HomePages {
         return RouterPathNamed.todoPage;
       case HomePages.network:
         return RouterPathNamed.networkPage;
+      case HomePages.networkWithRefreshToken:
+        return RouterPathNamed.networkPageWithRefreshToken;
     }
   }
 }

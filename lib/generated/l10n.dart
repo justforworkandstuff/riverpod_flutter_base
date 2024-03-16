@@ -130,6 +130,16 @@ class S {
     );
   }
 
+  /// `Network (Refresh Token)`
+  String get networkWithRefreshToken {
+    return Intl.message(
+      'Network (Refresh Token)',
+      name: 'networkWithRefreshToken',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `You have pushed this button this many times:`
   String get counterText {
     return Intl.message(

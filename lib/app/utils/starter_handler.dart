@@ -9,7 +9,6 @@ import 'package:dumbdumb_flutter_app/app/service/base_services.dart';
 /// Function to perform all initial configuration based on running environment
 /// Any method, feature that requires to init()/start() before app running, may do it here
 Future<void> init(EnvironmentType type) async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   //Setting up sharedPreference instance

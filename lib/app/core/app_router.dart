@@ -6,6 +6,7 @@ class RouterPath {
   static const String counterPage = 'counter';
   static const String todoPage = 'todoPage';
   static const String networkPage = 'networkPage';
+  static const String networkPageWithRefreshToken = 'networkPageWithRefreshToken';
 }
 
 class RouterPathNamed {
@@ -13,6 +14,7 @@ class RouterPathNamed {
   static const String counterPage = 'counterPage';
   static const String todoPage = 'todoPage';
   static const String networkPage = 'networkPage';
+  static const String networkPageWithRefreshToken = 'networkPageWithRefreshToken';
 }
 
 /// Navigator Keys needed for the use-case of bottomNavigationBar navigation to-and-return
@@ -41,6 +43,11 @@ final GoRouter router = GoRouter(
             name: RouterPathNamed.networkPage,
             path: RouterPath.networkPage,
             builder: (context, state) => const NetworkConsumerPage()
+        ),
+        GoRoute(
+            name: RouterPathNamed.networkPageWithRefreshToken,
+            path: RouterPath.networkPageWithRefreshToken,
+            builder: (context, state) => const NetworkConsumerStatefulWidget()
         ),
       ]
     ),

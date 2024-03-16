@@ -1,6 +1,7 @@
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/notifiers/user_controller.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/notifiers/user_controller_with_refresh_token_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +16,7 @@ class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetStat
   @override
   Widget build(BuildContext context) {
     /// We can use "ref.watch" inside our widget like we did using "Consumer"
-    final userModel = ref.watch(userControllerProvider);
+    final userModel = ref.watch(userControllerWithRefreshTokenFlowProvider);
     return Center(
       child: RefreshIndicator(
           onRefresh: () async => ref.read(userControllerProvider.notifier).getUser(),

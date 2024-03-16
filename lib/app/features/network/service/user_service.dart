@@ -38,4 +38,41 @@ class UserService {
   String? getUserImage() {
     return ref.read(authRepositoryProvider).getUserImage();
   }
+
+  // TODO: FOR REFRESH TOKEN FLOW REQUEST TESTING ONLY -------------------------
+  Future<dynamic> getFirstApi() async {
+    final response = await ref.read(userRepositoryProvider).getFirstApi();
+    if (response.status == ResponseStatus.complete &&
+        response.data != null &&
+        jsonDecode(response.data) is Map<String, dynamic>) {
+      // The actual return items doesn't matter
+      return '';
+    } else if (response.status == ResponseStatus.error && response.error != null) {
+      throw CustomException(ErrorModel.fromJson(jsonDecode(response.error)));
+    }
+    throw CustomException(ErrorModel.unhandledError);
+  }
+
+  Future<dynamic> getSecondApi() async {
+    final response = await ref.read(userRepositoryProvider).getSecondApi();
+    if (response.status == ResponseStatus.complete &&
+        response.data != null &&
+        jsonDecode(response.data) is Map<String, dynamic>) {
+      // The actual return items doesn't matter
+      return '';
+    } else if (response.status == ResponseStatus.error && response.error != null) {
+      throw CustomException(ErrorModel.fromJson(jsonDecode(response.error)));
+    }
+    throw CustomException(ErrorModel.unhandledError);
+  }
+
+  Future<dynamic> putToken() async {
+    final response = await ref.read(userRepositoryProvider).putToken();
+    if (response.status == ResponseStatus.complete && response.data != null && response.data is bool) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // TODO: REFRESH TOKEN FLOW REQUEST TESTING END -------------------------
 }
