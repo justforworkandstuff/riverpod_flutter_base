@@ -14,7 +14,7 @@ class NetworkConsumerStatefulWidget extends BaseConsumerStatefulWidget {
 
 class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetState<NetworkConsumerStatefulWidget> {
   @override
-  Widget build(BuildContext context) {
+  Widget body() {
     /// We can use "ref.watch" inside our widget like we did using "Consumer"
     final userModel = ref.watch(userControllerWithRefreshTokenFlowProvider);
     return Center(
@@ -22,28 +22,28 @@ class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetStat
           onRefresh: () async => ref.read(userControllerProvider.notifier).getUser(),
           child: switch (userModel) {
             AsyncData(:final value) => CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () => ref.read(userControllerProvider.notifier).getUserImage(),
-                          child: CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.white,
-                              backgroundImage: value?.profileImage?.isNotEmpty == true
-                                  ? NetworkImage(value?.profileImage ?? '')
-                                  : null),
-                        ),
-                        const SizedBox(height: 100),
-                        Container(alignment: Alignment.center, child: Text(S.current.nameIs(value?.name ?? ''))),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+              slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () => ref.read(userControllerProvider.notifier).getUserImage(),
+                        child: CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.white,
+                            backgroundImage: value?.profileImage?.isNotEmpty == true
+                                ? NetworkImage(value?.profileImage ?? '')
+                                : null),
+                      ),
+                      const SizedBox(height: 100),
+                      Container(alignment: Alignment.center, child: Text(S.current.nameIs(value?.name ?? ''))),
+                    ],
+                  ),
+                )
+              ],
+            ),
             AsyncError() => Text(S.current.generalError),
             _ => const CircularProgressIndicator()
           }),
@@ -51,5 +51,5 @@ class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetStat
   }
 
   @override
-  AppBar? appbar() => AppBar(title: Text(S.current.network), centerTitle: true);
+  AppBar? appbar() => AppBar(title: Text(S.current.networkWithRefreshToken), centerTitle: true);
 }

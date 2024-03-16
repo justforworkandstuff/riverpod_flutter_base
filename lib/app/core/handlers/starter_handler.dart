@@ -1,5 +1,5 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
-import 'package:dumbdumb_flutter_app/app/utils/shared_preference_handler.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
+import 'package:dumbdumb_flutter_app/app/core/handlers/shared_preference_handler.dart';
 import 'package:flutter/cupertino.dart';
 
 /// Function to perform all initial configuration based on running environment

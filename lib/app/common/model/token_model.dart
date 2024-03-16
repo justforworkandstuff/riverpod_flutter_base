@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/utils/util.dart';
+import 'package:dumbdumb_flutter_app/app/core/util.dart';
 
 class TokenModel {
 

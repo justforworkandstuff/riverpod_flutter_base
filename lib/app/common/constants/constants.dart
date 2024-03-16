@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:dumbdumb_flutter_app/app/utils/shared_preference_handler.dart';
+import 'package:dumbdumb_flutter_app/app/core/handlers/shared_preference_handler.dart';
 
 class HttpErrorCode {
   static const int unauthorized = 401;

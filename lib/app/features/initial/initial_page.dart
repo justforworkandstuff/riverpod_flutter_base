@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/core/enums.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';

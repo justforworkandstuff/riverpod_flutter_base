@@ -2,7 +2,7 @@ import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
-import 'package:dumbdumb_flutter_app/app/utils/util.dart';
+import 'package:dumbdumb_flutter_app/app/core/util.dart';
 
 class ToDoPage extends BaseConsumerWidget {
   const ToDoPage({super.key});

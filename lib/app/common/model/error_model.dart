@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/core/constants.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/constants.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
 
 class ErrorModel {

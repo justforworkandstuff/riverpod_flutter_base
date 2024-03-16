@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/my_response_model.dart';
 import 'package:dumbdumb_flutter_app/app/common/model/token_model.dart';
-import 'package:dumbdumb_flutter_app/app/core/constants.dart';
-import 'package:dumbdumb_flutter_app/app/core/enums.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/constants.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/service/providers/app_options_providers.dart';
-import 'package:dumbdumb_flutter_app/app/utils/shared_preference_handler.dart';
+import 'package:dumbdumb_flutter_app/app/core/configurations/app_options_providers.dart';
+import 'package:dumbdumb_flutter_app/app/core/handlers/shared_preference_handler.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dio_controller.g.dart';
@@ -20,7 +20,7 @@ class DioController extends _$DioController {
   @override
   Dio build() {
     final dioInstance = Dio(ApiConstants.customOptions);
-    dioInstance.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+    dioInstance.interceptors.add(QueuedInterceptorsWrapper(onRequest: (options, handler) {
       if (options.headers.containsKey('Authorization') && SharedPreferenceHandler.getAccessToken().isNotEmpty) {
         options.headers['Authorization'] = 'Bearer ${SharedPreferenceHandler.getAccessToken()}';
       }
@@ -32,10 +32,10 @@ class DioController extends _$DioController {
           error.response?.statusCode == HttpErrorCode.forbidden) {
         try {
           final options = error.response!.requestOptions;
-          final dynamic responseRefreshToken = await getRefreshToken(ref.read(refreshTokenUrlProvider));
+          final responseRefreshToken = await getNewTokens(ref.read(refreshTokenUrlProvider));
 
           /// Token update failed
-          if (responseRefreshToken is String && responseRefreshToken.isEmpty) {
+          if (responseRefreshToken.isEmpty) {
             return handler.reject(error);
           }
 
@@ -44,7 +44,7 @@ class DioController extends _$DioController {
           await Dio(ApiConstants.customOptions)
               .fetch(options)
               .then(handler.resolve)
-              .catchError((e) => handler.reject(e as DioException));
+              .catchError((e) => handler.reject(e));
         } catch (e) {
           return handler.reject(DioException(requestOptions: error.response!.requestOptions));
         }
@@ -55,12 +55,12 @@ class DioController extends _$DioController {
     return dioInstance;
   }
 
-  Future<String> getRefreshToken(String refreshTokenUrl) async {
+  Future<String> getNewTokens(String refreshTokenUrl) async {
     if (_refreshTokenCompleter != null) return _refreshTokenCompleter!.future;
 
     final completer = _refreshTokenCompleter = Completer();
     try {
-      final token = await _actionCallRefreshToken(refreshTokenUrl);
+      final String token = await _actionCallRefreshToken(refreshTokenUrl);
       completer.complete(token);
       return token;
     } catch (ex, stacktrace) {
@@ -69,7 +69,7 @@ class DioController extends _$DioController {
     }
   }
 
-  Future<dynamic> _actionCallRefreshToken(String refreshTokenUrl) async {
+  Future<String> _actionCallRefreshToken(String refreshTokenUrl) async {
     try {
       final response = await Dio(ApiConstants.customOptions).post<String>(
         refreshTokenUrl,
@@ -78,13 +78,14 @@ class DioController extends _$DioController {
       );
       if (response.statusCode == HttpStatus.ok) {
         final tokenModel = TokenModel.fromJson(json.decode(response.data ?? '') as Map<String, dynamic>);
-
         SharedPreferenceHandler.putAccessToken(tokenModel.accessToken);
         SharedPreferenceHandler.putRefreshToken(tokenModel.refreshToken);
+        return SharedPreferenceHandler.getAccessToken();
       }
-      return SharedPreferenceHandler.getAccessToken();
+      return '';
     } catch (e) {
-      return e;
+      debugPrint('refreshToken: $e');
+      return '';
     }
   }
 

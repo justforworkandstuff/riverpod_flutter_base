@@ -21,11 +21,13 @@ class UserControllerWithRefreshTokenFlow extends _$UserControllerWithRefreshToke
     // 3. Refresh token api (200 success)
     // 4. Api 1 (200 success with new accessToken)
     // 5. Api 2 (200 success with new accessToken)
+    // ------- Uncomment these to test the flow --------
     // await userService.putToken();
     // await Future.wait([
     //   userService.getFirstApi(),
     //   userService.getSecondApi(),
     // ]);
+    // ------- End --------
     return await userService.getUser();
   }
 

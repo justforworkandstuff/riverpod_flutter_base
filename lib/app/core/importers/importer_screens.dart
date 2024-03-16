@@ -1,6 +1,6 @@
 /// Screens
-export 'package:dumbdumb_flutter_app/app/features/base_pages/base_consumer_widget.dart';
-export 'package:dumbdumb_flutter_app/app/features/base_pages/base_consumer_stateful_widget.dart';
+export 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_widget.dart';
+export 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_stateful_widget.dart';
 export 'package:dumbdumb_flutter_app/app/features/entry/app.dart';
 export 'package:dumbdumb_flutter_app/app/features/initial/initial_page.dart';
 export 'package:dumbdumb_flutter_app/app/features/counter/counter_page.dart';

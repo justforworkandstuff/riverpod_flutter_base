@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:dumbdumb_flutter_app/app/core/enums.dart';
-import 'package:dumbdumb_flutter_app/app/core/firebase_options.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
+import 'package:dumbdumb_flutter_app/app/core/configurations/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
