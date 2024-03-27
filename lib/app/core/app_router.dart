@@ -1,5 +1,6 @@
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
 import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
+import 'package:dumbdumb_flutter_app/app/features/webview/webview_page.dart';
 
 class RouterPath {
   static const String initialPage = '/';
@@ -7,6 +8,7 @@ class RouterPath {
   static const String todoPage = 'todoPage';
   static const String networkPage = 'networkPage';
   static const String networkPageWithRefreshToken = 'networkPageWithRefreshToken';
+  static const String webView = 'webView';
 }
 
 class RouterPathNamed {
@@ -15,6 +17,7 @@ class RouterPathNamed {
   static const String todoPage = 'todoPage';
   static const String networkPage = 'networkPage';
   static const String networkPageWithRefreshToken = 'networkPageWithRefreshToken';
+  static const String webView = 'webView';
 }
 
 /// Navigator Keys needed for the use-case of bottomNavigationBar navigation to-and-return
@@ -49,6 +52,11 @@ final GoRouter router = GoRouter(
             path: RouterPath.networkPageWithRefreshToken,
             builder: (context, state) => const NetworkConsumerStatefulWidget()
         ),
+        GoRoute(
+          name: RouterPathNamed.webView,
+          path: RouterPath.webView,
+          builder: (context, state) => const WebViewPage()
+        )
       ]
     ),
   ]

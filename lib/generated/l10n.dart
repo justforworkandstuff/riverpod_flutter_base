@@ -179,6 +179,16 @@ class S {
       args: [value],
     );
   }
+
+  /// `Web View`
+  String get webView {
+    return Intl.message(
+      'Web View',
+      name: 'webView',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

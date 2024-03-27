@@ -8,7 +8,13 @@ class InitialPage extends BaseConsumerWidget {
 
   @override
   Widget body(BuildContext context, WidgetRef ref) {
-    final itemList = [HomePages.counter, HomePages.todo, HomePages.network, HomePages.networkWithRefreshToken];
+    final itemList = [
+      HomePages.counter,
+      HomePages.todo,
+      HomePages.network,
+      HomePages.networkWithRefreshToken,
+      HomePages.webView
+    ];
 
     return Center(
       child: ListView.builder(

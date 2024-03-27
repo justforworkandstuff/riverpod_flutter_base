@@ -49,6 +49,12 @@ dependencies:
   # UI / UX
   flutter_animate: ^4.4.0
 
+  # WebView page testing
+  webview_flutter: ^4.7.0
+  webview_flutter_android: any
+  webview_flutter_wkwebview: any
+  webview_flutter_platform_interface: any
+
 flutter:
   uses-material-design: true
   generate: true

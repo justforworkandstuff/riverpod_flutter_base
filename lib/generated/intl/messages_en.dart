@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Network (Refresh Token)"),
         "newToDo": MessageLookupByLibrary.simpleMessage("New to do"),
         "textOk": MessageLookupByLibrary.simpleMessage("OK"),
-        "todo": MessageLookupByLibrary.simpleMessage("To-Do")
+        "todo": MessageLookupByLibrary.simpleMessage("To-Do"),
+        "webView": MessageLookupByLibrary.simpleMessage("Web View")
       };
 }

@@ -18,5 +18,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "webView": "Web View"
 }
