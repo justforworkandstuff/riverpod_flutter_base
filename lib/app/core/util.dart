@@ -52,9 +52,21 @@ extension DynamicParsing on dynamic {
 }
 
 extension JsonParsing on dynamic {
-  String toJson() => jsonEncode(this);
+  String toJson() {
+    try {
+      return jsonEncode(this);
+    } catch (_) {
+      return '';
+    }
+  }
 
-  Map<String, dynamic> fromJson() => jsonDecode(this) as Map<String, dynamic>;
+  Map<String, dynamic> fromJson() {
+    try {
+      return jsonDecode(this) as Map<String, dynamic>;
+    } catch (_) {
+      return {};
+    }
+  }
 }
 
 extension StringExt on String? {

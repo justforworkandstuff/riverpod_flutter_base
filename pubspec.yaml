@@ -26,6 +26,7 @@ dependencies:
   device_info_plus: ^9.1.1
   package_info_plus: ^5.0.1
   store_redirect: ^2.0.1
+  internet_connection_checker: ^1.0.0+1
 
   # Data
   dio: ^5.4.0

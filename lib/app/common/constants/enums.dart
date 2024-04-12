@@ -44,3 +44,18 @@ enum HomePages {
     }
   }
 }
+
+enum NotificationActionType {
+  notificationAction;
+
+  const NotificationActionType();
+
+  String get actionValue {
+    switch (this) {
+      case notificationAction:
+        return 'notificationAction';
+      default:
+        return '';
+    }
+  }
+}

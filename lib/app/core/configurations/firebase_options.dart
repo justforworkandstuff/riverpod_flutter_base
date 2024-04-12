@@ -63,34 +63,32 @@ class DefaultFirebaseOptions {
     }
   }
 
-  /// Firebase Configuration data
-  /// To be update with your own project configuration data
+  /// ---------------------------------------- Firebase Configuration Data ------------------------------------
+  ///
+  ///
+  ///
+  // TODO: To be update with your own project configuration data
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
-    appId: '1:810536580213:android:efa70204a6ce51fa04b43c',
-    messagingSenderId: '810536580213',
-    // project number
-    projectId: 'dumbdumbflutter',
-    storageBucket: 'dumbdumbflutter.appspot.com',
-  );
+      apiKey: 'Your api key',
+      appId: 'Your app id',
+      messagingSenderId: 'Your messaging sender id',
+      projectId: 'Your project id',
+      storageBucket: 'Your storage bucket id');
 
   static const FirebaseOptions androidStaging = FirebaseOptions(
-    apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
-    appId: '1:810536580213:android:2fc3957d9a31b1d404b43c',
-    messagingSenderId: '810536580213',
-    // project number
-    projectId: 'dumbdumbflutter',
-    storageBucket: 'dumbdumbflutter.appspot.com',
-  );
+      apiKey: 'Your api key',
+      appId: 'Your app id',
+      messagingSenderId: 'Your messaging sender id',
+      projectId: 'Your project id',
+      storageBucket: 'Your storage bucket id');
 
   static const FirebaseOptions androidDev = FirebaseOptions(
-    apiKey: 'AIzaSyDzE4rPFajLcoDnU206qN4FCH-r1eQlSio',
-    appId: '1:810536580213:android:2fc3957d9a31b1d404b43c',
-    messagingSenderId: '810536580213',
-    // project number
-    projectId: 'dumbdumbflutter',
-    storageBucket: 'dumbdumbflutter.appspot.com',
-  );
+      apiKey: 'Your api key',
+      appId: 'Your app id',
+      messagingSenderId: 'Your messaging sender id',
+      projectId: 'Your project id',
+      storageBucket: 'Your storage bucket id');
 
   static FirebaseOptions _iOSOption(EnvironmentType type) {
     switch (type) {
@@ -105,39 +103,35 @@ class DefaultFirebaseOptions {
     }
   }
 
-  /// Firebase Configuration data
-  /// To be update with your own project configuration data
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_API KEY',
-    appId: 'YOUR_API_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR STORAGE BUCKET',
-    iosClientId: 'YOUR_IOS_CLIENT_ID',
-    iosBundleId: 'YOUR_IOS_BUNDLE_ID',
-  );
+      apiKey: 'Your api key',
+      appId: 'Your app id',
+      messagingSenderId: 'Your sender id',
+      projectId: 'Your project id',
+      storageBucket: 'Your storage bucket',
+      iosClientId: 'Your iosClientId',
+      iosBundleId: 'Your iosBundleId');
 
-  /// Firebase Configuration data
-  /// To be update with your own project configuration data
   static const FirebaseOptions iosStaging = FirebaseOptions(
-    apiKey: 'YOUR_API KEY',
-    appId: 'YOUR_API_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR STORAGE BUCKET',
-    iosClientId: 'YOUR_IOS_CLIENT_ID',
-    iosBundleId: 'YOUR_IOS_BUNDLE_ID',
-  );
+      apiKey: 'Your api key',
+      appId: 'Your app id',
+      messagingSenderId: 'Your sender id',
+      projectId: 'Your project id',
+      storageBucket: 'Your storage bucket',
+      iosClientId: 'Your iosClientId',
+      iosBundleId: 'Your iosBundleId');
 
-  /// Firebase Configuration data
-  /// To be update with your own project configuration data
   static const FirebaseOptions iosDev = FirebaseOptions(
-    apiKey: 'YOUR_API KEY',
-    appId: 'YOUR_API_ID',
-    messagingSenderId: 'YOUR_SENDER_ID',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR STORAGE BUCKET',
-    iosClientId: 'YOUR_IOS_CLIENT_ID',
-    iosBundleId: 'YOUR_IOS_BUNDLE_ID',
-  );
+      apiKey: 'Your api key',
+      appId: 'Your app id',
+      messagingSenderId: 'Your sender id',
+      projectId: 'Your project id',
+      storageBucket: 'Your storage bucket',
+      iosClientId: 'Your iosClientId',
+      iosBundleId: 'Your iosBundleId');
+
+  ///
+  ///
+  ///
+  /// ---------------------------------------- Firebase Configuration Data End ------------------------------------
 }
