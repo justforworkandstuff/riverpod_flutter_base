@@ -1,7 +1,8 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_widget.dart';
 import 'package:dumbdumb_flutter_app/app/features/counter/controllers/counter_controller.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CounterPage extends BaseConsumerWidget {
   const CounterPage({super.key});
@@ -13,7 +14,7 @@ class CounterPage extends BaseConsumerWidget {
     return Center(
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text(S.current.counterText), Text(counterValue.toString())],
+          children: [Text(S.current.counterText), Text(counterValue.toString())],
     ));
   }
 

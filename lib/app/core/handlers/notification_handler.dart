@@ -1,18 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:collection/collection.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
 import 'package:dumbdumb_flutter_app/app/core/util.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-/// Notification from background will display on system tray by default.
-/// Use this method if we need to explicitly do something after receiving notification, e.g. set up Flutter App Badge count
-@pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  debugPrint('fcm: - onBackgroundMessageHandling: ${message.toMap()}');
-}
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
 const AndroidNotificationChannel androidChannel = AndroidNotificationChannel(
@@ -48,6 +42,7 @@ class NotificationHandler {
         appLaunchDetails.didNotificationLaunchApp &&
         appLaunchDetails.notificationResponse != null) {
       debugPrint('fcm: getInitialMessage from notifications created by flutter_local_notifications');
+      debugPrint('fcm: getInitialMessage data ${appLaunchDetails.notificationResponse}');
       onNotificationSelected(appLaunchDetails.notificationResponse);
     } else {
       FirebaseMessaging.instance.getInitialMessage().then((message) {
@@ -98,9 +93,6 @@ class NotificationHandler {
       onNotificationHandled(message);
     });
 
-    /// Handles actions to be done when notification is received while app is in Background state
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
     AuthorizationStatus authorizationStatus;
     final notificationSettings = await FirebaseMessaging.instance.requestPermission();
 
@@ -135,7 +127,7 @@ class NotificationHandler {
     if (notification?.payload?.isNotEmpty == true) {
       final String type = (jsonDecode(notification?.payload ?? '')['notificationType']).toLowerCase();
       final notificationActionType =
-          NotificationActionType.values.firstWhereOrNull((element) => element.actionValue == type);
+      NotificationActionType.values.firstWhereOrNull((element) => element.actionValue == type);
       debugPrint('fcm: onNotificationSelected - type is ${notificationActionType?.actionValue}');
       // TODO: To add your own onNotificationSelected action
     }

@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'to_do_model.g.dart';
 part 'to_do_model.freezed.dart';

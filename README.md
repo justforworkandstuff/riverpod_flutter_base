@@ -296,10 +296,7 @@ configured to be displayed for the destination route. To change to a new screen,
 with a URL, as the following example:
 
 ```dart
-context.go
-('/login
-'
-);
+context.go('/login');
 ```
 
 #### Imperative navigation
@@ -317,12 +314,13 @@ Initial page:
 
 ```dart 
 await context.go('/login');
-if(result...) ...
+if (result...) ...
 ```
 
 Returning page:
 
-```dart 
+```dart
+final result = true;
 context.pop(result);
 ```
 
@@ -343,27 +341,44 @@ Example:
 ```dart
 
 static const FirebaseOptions android = FirebaseOptions(
-  apiKey: 'YOUR API KEY',
-  appId: 'YOUR APP ID',
-  messagingSenderId: 'MESSAGING SENDER ID',
-  projectId: 'YOUR PROJECT ID',
-  storageBucket: 'YOUR STORAGE BUCKET',
+    apiKey: 'Your api key',
+    appId: 'Your app id',
+    messagingSenderId: 'Your messaging sender id',
+    projectId: 'Your project id',
+    storageBucket: 'Your storage bucket id',
 );
 
 static const FirebaseOptions ios = FirebaseOptions(
-  apiKey: 'YOUR API KEY',
-  appId: 'YOUR APP ID',
-  messagingSenderId: 'MESSAGING SENDER ID',
-  projectId: 'YOUR PROJECT ID',
-  storageBucket: 'YOUR STORAGE BUCKET',
+    apiKey: 'Your api key',
+    appId: 'Your app id',
+    messagingSenderId: 'Your sender id',
+    projectId: 'Your project id',
+    storageBucket: 'Your storage bucket',
+    iosClientId: 'Your iosClientId',
+    iosBundleId: 'Your iosBundleId',
 );
 ```
 
 ### Firebase Cloud Messaging
 
-1. A basic notification handling custom class is included within the
-   project (`lib/app/core/handlers/notification_handler.dart`), which handled Firebase
-   initialization and receiving message in foreground, background and when app is terminated state.
+A basic notification handling custom class is included within the project
+(`lib/app/core/handlers/notification_handler.dart`), which is tasked to handle messages received
+from notifications, in each state:
+
+1. Foreground
+2. Background
+3. Terminated
+
+All of these respective states have their own logic and criteria for display, for more info, may
+refer
+to [Firebase Cloud Messaging official documentation][firebase_cloud_messaging_official_documentation].
+
+In this project, we're applying the notification handling with two main
+packages: [firebase_messaging] and [flutter_local_notifications].
+
+The reason for this, is that Android have a custom behaviour that does not show notifications, if
+user is in foreground state.
+Therefore, we need to use [flutter_local_notifications] to show in foreground state.
 
 ## Working with Translations 🌐
 
@@ -511,6 +526,12 @@ ready to be used and thus allowing the speedy preparation of this template to be
 [flutter_localizations_link]: https://api.flutter.dev/flutter/flutter_localizations/flutter_localizations-library.html
 
 [internationalization_link]: https://flutter.dev/docs/development/accessibility-and-localization/internationalization
+
+[firebase_cloud_messaging_official_documentation]: https://firebase.google.com/docs/cloud-messaging/flutter/receive
+
+[firebase_messaging]: https://pub.dev/packages/firebase_messaging
+
+[flutter_local_notifications]: https://pub.dev/packages/flutter_local_notifications
 
 [Flutter_Intl_Plugin]: https://plugins.jetbrains.com/plugin/13666-flutter-intl
 

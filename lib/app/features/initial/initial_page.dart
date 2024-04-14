@@ -1,20 +1,29 @@
 import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/app/core/handlers/notification_handler.dart';
+import 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_stateful_widget.dart';
+import 'package:dumbdumb_flutter_app/app/features/initial/widgets/item_selection_widget.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class InitialPage extends BaseConsumerWidget {
+class InitialPage extends BaseConsumerStatefulWidget {
   const InitialPage({super.key});
 
   @override
-  Widget body(BuildContext context, WidgetRef ref) {
-    final itemList = [
-      HomePages.counter,
-      HomePages.todo,
-      HomePages.network,
-      HomePages.networkWithRefreshToken,
-      HomePages.webView
-    ];
+  ConsumerState createState() => _InitialPageState();
+}
+
+class _InitialPageState extends BaseConsumerStatefulWidgetState<InitialPage> {
+  @override
+  void initState() {
+    super.initState();
+    NotificationHandler.checkForInitialMessage();
+  }
+
+  @override
+  Widget body() {
+    final itemList = [HomePages.counter, HomePages.todo, HomePages.network, HomePages.networkWithRefreshToken];
 
     return Center(
       child: ListView.builder(

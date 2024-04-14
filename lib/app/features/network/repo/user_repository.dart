@@ -1,7 +1,8 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
+import 'package:dumbdumb_flutter_app/app/common/constants/enums.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/my_response_model.dart';
 import 'package:dumbdumb_flutter_app/app/core/dio/dio_controller.dart';
 import 'package:dumbdumb_flutter_app/app/core/handlers/shared_preference_handler.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Repository class serves as an intermediary between the data source with the business logic.
 /// It promotes the separation of concerns between data accessing logic and actual business logic

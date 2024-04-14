@@ -1,12 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class WidgetUtil {
   static Future<dynamic> showAlertDialog(BuildContext context,
@@ -110,8 +112,31 @@ extension BytesExt on int {
 class DeviceChecking {
   static Future<String> getDeviceId() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    return Platform.isIOS
-        ? await deviceInfo.iosInfo.then((value) => value.identifierForVendor ?? '')
-        : await deviceInfo.androidInfo.then((value) => value.id);
+
+    /// Needed as [device_info_plugin] package has removed support to get
+    /// Android device's unique id in ^4.0.0 and above.
+    /// Ref: https://pub.dev/packages/device_info_plus/changelog#410
+    AndroidId androidId = const AndroidId();
+    if (kIsWeb) {
+      const uuid = Uuid();
+      return uuid.v4();
+    } else {
+      switch (defaultTargetPlatform) {
+        case TargetPlatform.android:
+          return await androidId.getId() ?? '';
+        case TargetPlatform.fuchsia:
+          return 'getDeviceId has not been configured for fuchsia.';
+        case TargetPlatform.iOS:
+          return await deviceInfo.iosInfo.then((value) => value.identifierForVendor ?? '');
+        case TargetPlatform.linux:
+          return 'getDeviceId has not been configured for linux.';
+        case TargetPlatform.macOS:
+          return 'getDeviceId has not been configured for macOS.';
+        case TargetPlatform.windows:
+          return 'getDeviceId has not been configured for windows.';
+        default:
+          return '';
+      }
+    }
   }
 }

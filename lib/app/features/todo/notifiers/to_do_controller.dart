@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
+import 'package:dumbdumb_flutter_app/app/features/todo/model/to_do_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'to_do_controller.g.dart';

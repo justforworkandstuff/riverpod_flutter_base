@@ -1,6 +1,11 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
+import 'dart:convert';
+
+import 'package:dumbdumb_flutter_app/app/common/exceptions/custom_exception.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/error_model.dart';
+import 'package:dumbdumb_flutter_app/app/common/model/my_response_model.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/providers/network_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Service is a class that helps in promoting the separation of concerns within the project
 /// as separates out the business logic and data source from each other.

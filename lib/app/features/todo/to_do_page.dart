@@ -1,8 +1,12 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
 import 'package:dumbdumb_flutter_app/app/core/util.dart';
+import 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_widget.dart';
+import 'package:dumbdumb_flutter_app/app/features/todo/model/to_do_model.dart';
+import 'package:dumbdumb_flutter_app/app/features/todo/notifiers/to_do_controller.dart';
+import 'package:dumbdumb_flutter_app/app/features/todo/widgets/check_box_item_widget.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class ToDoPage extends BaseConsumerWidget {
   const ToDoPage({super.key});
@@ -51,9 +55,7 @@ class ToDoPage extends BaseConsumerWidget {
 
   void _actionAddNewToDo(WidgetRef ref, BuildContext context) async {
     final String? dialogCallback = await WidgetUtil.showAlertDialog(context,
-        title: S.current.newToDo,
-        dismissible: false,
-        customWidget: _buildCustomDialogWidget(context));
+        title: S.current.newToDo, dismissible: false, customWidget: _buildCustomDialogWidget(context));
     if (dialogCallback?.isNotEmpty == true) {
       final newToDoModel = ToDoModel(description: dialogCallback, completed: false);
       ref.read(toDoControllerProvider.notifier).addToDo(newToDoModel);

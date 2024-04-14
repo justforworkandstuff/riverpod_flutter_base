@@ -1,4 +1,6 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
+
+
+import 'package:dumbdumb_flutter_app/app/common/model/error_model.dart';
 
 class CustomException implements Exception {
   CustomException(this.error);

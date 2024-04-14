@@ -1,7 +1,8 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_screens.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/app/common/exceptions/custom_exception.dart';
+import 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_widget.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/notifiers/user_controller.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,7 +14,7 @@ class NetworkConsumerPage extends BaseConsumerWidget {
   @override
   Widget body(BuildContext context, WidgetRef ref) {
     /// We can use "ref.watch" inside our widget like we did using "Consumer"
-    final userModel = ref.watch(userControllerProvider);
+    final AsyncValue<UserModel?> userModel = ref.watch(userControllerProvider);
     return Center(
       child: RefreshIndicator(
           onRefresh: () async => ref.read(userControllerProvider.notifier).getUser(),

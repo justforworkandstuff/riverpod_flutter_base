@@ -1,5 +1,5 @@
 import 'package:dumbdumb_flutter_app/app/core/app_router.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 
 /// Environment supported in this project
 enum EnvironmentType { production, staging, development }

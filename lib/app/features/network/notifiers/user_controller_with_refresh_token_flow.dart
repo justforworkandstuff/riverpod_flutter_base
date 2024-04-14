@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_model.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/service/user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

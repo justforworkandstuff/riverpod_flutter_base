@@ -1,12 +1,12 @@
 import 'package:dumbdumb_flutter_app/app/common/constants/constants.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 
 class ErrorModel {
   const ErrorModel(
       {required this.errorCode, this.errorMessage, this.errorCodeDescription, this.error, this.errorDescription});
 
   static ErrorModel unhandledError =
-      ErrorModel(errorCode: HttpErrorCode.unhandledErrorCode, errorMessage: S.current.generalError);
+  ErrorModel(errorCode: HttpErrorCode.unhandledErrorCode, errorMessage: S.current.generalError);
 
   factory ErrorModel.fromJson(Map<String, dynamic> json) {
     return ErrorModel(

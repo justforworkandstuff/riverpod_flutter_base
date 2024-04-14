@@ -1,4 +1,5 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseConsumerStatefulWidget extends ConsumerStatefulWidget {
   const BaseConsumerStatefulWidget({super.key});
@@ -21,13 +22,13 @@ abstract class BaseConsumerStatefulWidgetState<Page extends BaseConsumerStateful
   void onBackPressed() => Navigator.pop(context);
 
   /// Common widgets
-  AppBar? appbar() => null;
+  AppBar? appBar() => null;
 
   Widget? floatingActionButton() => null;
 
   BottomNavigationBar? bottomNavigationBar() => null;
 
-  Widget body() => const SizedBox.shrink();
+  Widget body();
 
   /// Each Page are meant to be build with a [Scaffold] structure
   /// include with [AppBar], [Body], [FloatingActionButton]
@@ -36,6 +37,7 @@ abstract class BaseConsumerStatefulWidgetState<Page extends BaseConsumerStateful
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
+
       /// Added this to disallow showing of glow effect when over-scrolled
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
@@ -43,7 +45,7 @@ abstract class BaseConsumerStatefulWidgetState<Page extends BaseConsumerStateful
           return true;
         },
         child: Scaffold(
-          appBar: appbar(),
+          appBar: appBar(),
           body: SafeArea(top: isTopSafeAreaEnabled(), bottom: isBottomSafeAreaEnabled(), child: body()),
           floatingActionButton: floatingActionButton(),
           resizeToAvoidBottomInset: true,

@@ -1,4 +1,4 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
+import 'package:flutter/material.dart';
 
 class CheckBoxItemWidget extends StatefulWidget {
   const CheckBoxItemWidget({super.key, required this.itemTitle, required this.action});

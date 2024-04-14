@@ -6,8 +6,10 @@
 // https://opensource.org/licenses/MIT.
 
 import 'package:dumbdumb_flutter_app/app/core/app_router.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_structural.dart';
+import 'package:dumbdumb_flutter_app/generated/l10n.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Extend ConsumerWidget instead of StatelessWidget, which is exposed by Riverpod
 class App extends ConsumerWidget {
@@ -19,6 +21,7 @@ class App extends ConsumerWidget {
       /// This affects the app's background title name
       // TODO: Should update the [title] to the name of the application
       title: 'Dumb dumb',
+
       /// Disables scaling of app's textSize based on device settings
       builder: (context, child) {
         final mediaQueryData = MediaQuery.of(context);

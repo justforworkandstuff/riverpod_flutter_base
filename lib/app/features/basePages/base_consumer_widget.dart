@@ -1,4 +1,5 @@
-import 'package:dumbdumb_flutter_app/app/core/importers/importer_general.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class BaseConsumerWidget extends ConsumerWidget {
   const BaseConsumerWidget({super.key});
@@ -24,6 +25,7 @@ abstract class BaseConsumerWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,
+
       /// Added this to disallow showing of glow effect when over-scrolled
       child: NotificationListener<OverscrollIndicatorNotification>(
         onNotification: (OverscrollIndicatorNotification overScroll) {
