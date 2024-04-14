@@ -34,7 +34,7 @@ This is a base project that is developed with [Riverpod] being the heart of the 
     - [Navigation and Redirection](#navigation-and-redirection)
 - [Firebase](#working-with-firebase)
     - [Firebase configuration](#firebase-configuration)
-    - [Firebase Cloud Messaging](#firebase-cloud-messaging)
+    - [Notifications](#notifications)
 - [Working with translations](#working-with-translations-)
     - [Adding strings](#adding-strings)
     - [Adding supported locales](#adding-supported-locales)
@@ -359,7 +359,7 @@ static const FirebaseOptions ios = FirebaseOptions(
 );
 ```
 
-### Firebase Cloud Messaging
+### Notifications
 
 A basic notification handling custom class is included within the project
 (`lib/app/core/handlers/notification_handler.dart`), which is tasked to handle messages received
