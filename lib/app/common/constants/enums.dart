@@ -24,8 +24,8 @@ enum HomePages {
         return S.current.network;
       case HomePages.networkWithRefreshToken:
         return S.current.networkWithRefreshToken;
-      case HomePages.webView:
-        return S.current.webView;
+      default:
+        return '';
     }
   }
 
@@ -39,8 +39,8 @@ enum HomePages {
         return RouterPathNamed.networkPage;
       case HomePages.networkWithRefreshToken:
         return RouterPathNamed.networkPageWithRefreshToken;
-      case HomePages.webView:
-        return RouterPathNamed.webView;
+      default:
+        return '';
     }
   }
 }
