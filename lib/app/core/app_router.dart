@@ -6,6 +6,10 @@ import 'package:dumbdumb_flutter_app/app/features/todo/to_do_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+class AppRouter {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+}
+
 class RouterPath {
   static const String initialPage = '/';
   static const String counterPage = 'counter';
@@ -22,10 +26,7 @@ class RouterPathNamed {
   static const String networkPageWithRefreshToken = 'networkPageWithRefreshToken';
 }
 
-/// Navigator Keys needed for the use-case of bottomNavigationBar navigation to-and-return
-final _rootNavigatorKey = GlobalKey<NavigatorState>();
-
-final GoRouter router = GoRouter(initialLocation: RouterPath.initialPage, navigatorKey: _rootNavigatorKey, routes: [
+final GoRouter router = GoRouter(initialLocation: RouterPath.initialPage, navigatorKey: AppRouter.navigatorKey, routes: [
   GoRoute(
       name: RouterPathNamed.initialPage,
       path: RouterPath.initialPage,

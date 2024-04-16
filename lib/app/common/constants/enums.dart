@@ -11,8 +11,7 @@ enum HomePages {
   counter,
   todo,
   network,
-  networkWithRefreshToken,
-  webView;
+  networkWithRefreshToken;
 
   String get displayName {
     switch (this) {

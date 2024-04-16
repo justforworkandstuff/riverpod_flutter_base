@@ -54,7 +54,7 @@ class ToDoPage extends BaseConsumerWidget {
   }
 
   void _actionAddNewToDo(WidgetRef ref, BuildContext context) async {
-    final String? dialogCallback = await WidgetUtil.showAlertDialog(context,
+    final String? dialogCallback = await CommonActionsUtil.showAlertDialog(context,
         title: S.current.newToDo, dismissible: false, customWidget: _buildCustomDialogWidget(context));
     if (dialogCallback?.isNotEmpty == true) {
       final newToDoModel = ToDoModel(description: dialogCallback, completed: false);

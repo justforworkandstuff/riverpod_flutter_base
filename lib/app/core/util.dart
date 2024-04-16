@@ -1,39 +1,32 @@
+import 'dart:convert';
 import 'dart:async';
-import 'dart:io';
-import 'dart:math';
 
 import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dumbdumb_flutter_app/app/common/widgets/widget_custom_alert_dialog.dart';
+import 'package:dumbdumb_flutter_app/app/core/app_router.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-class WidgetUtil {
+class CommonActionsUtil {
   static Future<dynamic> showAlertDialog(BuildContext context,
       {String? title, String? content, List<Widget>? actions, bool? dismissible = false, Widget? customWidget}) async {
     return await showAdaptiveDialog<void>(
         context: context,
         barrierDismissible: dismissible,
-        builder: (BuildContext context) => AlertDialog.adaptive(
-            title: Text(title.toString()), content: customWidget ?? Text(content.toString()), actions: actions));
+        builder: (BuildContext context) => WidgetCustomAlertDialog(
+            title: title.toString(),
+            content: content,
+            actions: actions,
+            dismissible: dismissible,
+            customWidget: customWidget));
   }
-
-  static Widget getDialogButton(String text, VoidCallback? onPressed) {
-    return Platform.isAndroid
-        ? TextButton(onPressed: onPressed, child: Text(text))
-        : CupertinoDialogAction(
-            onPressed: onPressed,
-            child: Text(text),
-          );
-  }
-
-  static double getScaleFactor(BuildContext context) => min(MediaQuery.of(context).textScaler.scale(1.0), 1.0);
 
   static void showSnackBar(BuildContext context, String text) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+    ScaffoldMessenger.of(AppRouter.navigatorKey.currentContext ?? context).clearSnackBars();
+    ScaffoldMessenger.of(AppRouter.navigatorKey.currentContext ?? context).showSnackBar(SnackBar(content: Text(text)));
   }
 }
 
@@ -46,7 +39,7 @@ extension DynamicParsing on dynamic {
 
   bool parseBool() {
     if (this != null) {
-      return this as bool;
+      return bool.tryParse(toString()) ?? false;
     } else {
       return false;
     }
@@ -71,41 +64,56 @@ extension JsonParsing on dynamic {
   }
 }
 
-extension StringExt on String? {
-  String capitalize() => this?.isNotEmpty == true ? this![0].toUpperCase() + this!.substring(1) : this ?? '';
+extension StringExtension on String {
+  String capitalize() => isNotEmpty == true ? this[0].toUpperCase() + substring(1) : this;
 
-  String allCap() => this?.isNotEmpty == true ? this!.characters.map((e) => e.toUpperCase()).join() : this ?? '';
+  String allCap() => isNotEmpty == true ? characters.map((e) => e.toUpperCase()).join() : this;
 
-  bool isValidPhoneNumber() => RegExp(r'(^[0-9]{9,10}$)').hasMatch(this ?? '');
+  /// Valid Phone number where:
+  /// - Length should be either 7-10
+  bool isValidPhoneNumber() => RegExp(r'(^[0-9]{7,10}$)').hasMatch(this);
 
-  bool isValidPassword() =>
-      RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$&*~)%\-(_+=/?^]).{6,}$').hasMatch(this ?? '');
+  /// Requirement of:
+  /// - At least 1 uppercase letter (A-Z)
+  /// - At least 1 lowercase letter (a-z)
+  /// - At lease 1 digit (0-9)
+  /// - At least 1 special characters (!@#$&*~)%-(_+=/?^.)
+  /// - Minimum length of 6
+  bool isValidPassword() => RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[^\w\s:]).{6,}$').hasMatch(this);
 
-  bool isValidEmail() =>
-      RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this ?? '');
+  /// Requirement of:
+  /// - Should be able to include alphanumeric characters (A-Z, a-z, 0-9) and certain special characters (!#$%&'*+-/=?^_`{|}~) before the '@'
+  /// - Should have a '@' symbol
+  /// - Should be able to include alphanumeric characters (A-Z, a-z, 0-9) for the domain name (after the '@')
+  /// - Should have a dot (.) separating the domain name from the top-level domain (TLD)
+  /// - Should be able to include alphabetical characters (A-Z, a-z) for the top-level domain (after the '.')
+  bool isValidEmail() => RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(this);
 
-  bool isNumeric() => num.tryParse(this ?? '') != null;
+  bool isNumeric() => num.tryParse(this) != null;
 
-  String parseDateDDMMMYYYY() {
-    var parsed = DateTime.tryParse(this ?? '');
+  String parseTimeOnly() {
+    final parsed = DateTime.tryParse(this);
     if (parsed != null) {
-      return DateFormat('dd MMM yyyy').format(parsed);
+      return DateFormat.Hm().format(parsed);
     }
     return '';
   }
+
+  String parseUTCDate({String? dateFormat = 'yyyy-MM-dd HH:mm:ss'}) {
+    final parsed = DateTime.tryParse(this);
+    final local = parsed?.toLocal();
+    if (local != null) {
+      return DateFormat(dateFormat).format(local);
+    }
+    return '';
+  }
+
+  bool get isNullOrEmptyOrBlank => isNotEmpty == true ? replaceAll(' ', '').isEmpty : true;
 }
 
 extension DateTimeParsing on DateTime {
   String withFormat(String formatString) {
-    return DateFormat(formatString).format(this).toString();
-  }
-}
-
-extension BytesExt on int {
-  static const rate = 1024;
-
-  double toMb() {
-    return (this / rate) / rate;
+    return DateFormat(formatString).format(this);
   }
 }
 
