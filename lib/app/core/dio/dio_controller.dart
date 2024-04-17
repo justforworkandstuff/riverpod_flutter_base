@@ -31,6 +31,12 @@ class DioController extends _$DioController {
       /// Subject to change depends on backend configuration
       if (error.response?.statusCode == HttpErrorCode.unauthorized ||
           error.response?.statusCode == HttpErrorCode.forbidden) {
+        /// Cater to api response delayed after user has already logged out,
+        /// we will be handling it as resolved.
+        if (!SharedPreferenceHandler.isLoggedIn() == true) {
+          return handler.resolve(Response(requestOptions: error.response?.requestOptions ?? RequestOptions()));
+        }
+
         try {
           final options = error.response!.requestOptions;
           final responseRefreshToken = await getNewTokens(ref.read(refreshTokenUrlProvider));

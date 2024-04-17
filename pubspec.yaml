@@ -17,6 +17,7 @@ dependencies:
 
   # Tests
   test: ^1.24.1
+  mocktail: ^1.0.3
 
   # Project Structure
   go_router: ^13.2.0

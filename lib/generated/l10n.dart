@@ -180,11 +180,11 @@ class S {
     );
   }
 
-  /// `Web View`
-  String get webView {
+  /// `Failed to submit the request. Please try again later.`
+  String get apiRequestFailed {
     return Intl.message(
-      'Web View',
-      name: 'webView',
+      'Failed to submit the request. Please try again later.',
+      name: 'apiRequestFailed',
       desc: '',
       args: [],
     );

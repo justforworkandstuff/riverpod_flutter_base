@@ -24,6 +24,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "apiRequestFailed": MessageLookupByLibrary.simpleMessage(
+            "Failed to submit the request. Please try again later."),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
         "counter": MessageLookupByLibrary.simpleMessage("Counter"),
         "counterText": MessageLookupByLibrary.simpleMessage(
@@ -39,7 +41,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Network (Refresh Token)"),
         "newToDo": MessageLookupByLibrary.simpleMessage("New to do"),
         "textOk": MessageLookupByLibrary.simpleMessage("OK"),
-        "todo": MessageLookupByLibrary.simpleMessage("To-Do"),
-        "webView": MessageLookupByLibrary.simpleMessage("Web View")
+        "todo": MessageLookupByLibrary.simpleMessage("To-Do")
       };
 }

@@ -19,5 +19,5 @@
       }
     }
   },
-  "webView": "Web View"
+  "apiRequestFailed": "Failed to submit the request. Please try again later."
 }
