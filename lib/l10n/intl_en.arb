@@ -1,19 +1,23 @@
 {
-  "english": "English",
-  "bm": "Bahasa Melayu",
-  "mandarin": "中文",
-  "loginTitle": "Login",
-  "@loginTitle": {
-    "description": "Text shown in the AppBar of the Login Page"
-  },
-  "errorTitle": "Error",
-  "@errorTitle": {
-    "description": "Text shown in the title of alert dialog"
-  },
   "textOk": "OK",
-  "@textOk": {
-    "description": "Text shown in Ok"
+  "cancel": "Cancel",
+  "errorTitle": "Error",
+  "loginTitle": "Login",
+  "counter": "Counter",
+  "todo": "To-Do",
+  "network": "Network",
+  "home": "Home",
+  "networkWithRefreshToken": "Network (Refresh Token)",
+  "counterText": "You have pushed this button this many times:",
+  "generalError": "Something went wrong, please try again later.",
+  "newToDo": "New to do",
+  "nameIs": "Name is: {value}",
+  "@nameIs": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
   },
-  "apiRequestFailed": "Oppss.. something went wrong. Please contact admin for assistance.",
-  "jailbrokenWarning": "This device appear to be jailbroken or rooted. There are inherent risks with jailbroken or rooted devices and therefore the further usage of this app is not allowed."
+  "apiRequestFailed": "Failed to submit the request. Please try again later."
 }
