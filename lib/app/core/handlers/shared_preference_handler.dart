@@ -15,6 +15,10 @@ class SharedPreferenceHandler {
     return _sharedPreferences ??= await SharedPreferences.getInstance();
   }
 
+  static void disposeSharedPreference() {
+    _sharedPreferences = null;
+  }
+
   static bool isLoggedIn() => getUser() != null;
 
   static void logout() {
