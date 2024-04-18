@@ -22,6 +22,7 @@ void _currentFlavourGroupTests() {
       // When
       final result = container.read(currentFlavourProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, EnvironmentType.staging);
     });
 
@@ -35,6 +36,7 @@ void _currentFlavourGroupTests() {
       // When
       final result = container.read(currentFlavourProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, EnvironmentType.development);
     });
 
@@ -48,6 +50,7 @@ void _currentFlavourGroupTests() {
       // When
       final result = container.read(currentFlavourProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, EnvironmentType.staging);
     });
 
@@ -61,6 +64,7 @@ void _currentFlavourGroupTests() {
       // When
       final result = container.read(currentFlavourProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, EnvironmentType.production);
     });
   }, tags: ['mobile', 'unit']);
@@ -77,6 +81,7 @@ void _hostUrlGroupTests() {
       // When
       final result = container.read(hostUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, StagingConstant.apiEndpoint);
     });
 
@@ -90,6 +95,7 @@ void _hostUrlGroupTests() {
       // When
       final result = container.read(hostUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, DevelopmentConstant.apiEndpoint);
     });
 
@@ -103,6 +109,7 @@ void _hostUrlGroupTests() {
       // When
       final result = container.read(hostUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, StagingConstant.apiEndpoint);
     });
 
@@ -116,6 +123,7 @@ void _hostUrlGroupTests() {
       // When
       final result = container.read(hostUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, ProductionConstant.apiEndpoint);
     });
   }, tags: ['mobile', 'unit']);
@@ -136,6 +144,7 @@ void _refreshTokenUrlGroupTests() {
       // When
       final result = container.read(refreshTokenUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, '${StagingConstant.apiEndpoint}/$refreshTokenUrl');
     });
 
@@ -150,6 +159,7 @@ void _refreshTokenUrlGroupTests() {
       // When
       final result = container.read(refreshTokenUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, '${DevelopmentConstant.apiEndpoint}/$refreshTokenUrl');
     });
 
@@ -164,6 +174,7 @@ void _refreshTokenUrlGroupTests() {
       // When
       final result = container.read(refreshTokenUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, '${StagingConstant.apiEndpoint}/$refreshTokenUrl');
     });
 
@@ -178,6 +189,7 @@ void _refreshTokenUrlGroupTests() {
       // When
       final result = container.read(refreshTokenUrlProvider);
       // Then
+      addTearDown(() => container.dispose());
       expect(result, '${ProductionConstant.apiEndpoint}/$refreshTokenUrl');
     });
   }, tags: ['mobile', 'unit']);

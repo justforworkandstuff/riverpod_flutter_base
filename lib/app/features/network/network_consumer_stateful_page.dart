@@ -1,6 +1,6 @@
+import 'package:dumbdumb_flutter_app/app/common/widgets/widget_error_wrapper.dart';
 import 'package:dumbdumb_flutter_app/app/features/basePages/base_consumer_stateful_widget.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/notifiers/user_controller.dart';
-import 'package:dumbdumb_flutter_app/app/features/network/notifiers/user_controller_with_refresh_token_flow.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/controllers/user_controller_with_refresh_token_flow.dart';
 import 'package:dumbdumb_flutter_app/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,10 +18,10 @@ class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetStat
     /// We can use "ref.watch" inside our widget like we did using "Consumer"
     final userModel = ref.watch(userControllerWithRefreshTokenFlowProvider);
     return Center(
-      child: RefreshIndicator(
-          onRefresh: () async => ref.read(userControllerProvider.notifier).getUser(),
-          child: switch (userModel) {
-            AsyncData(:final value) => CustomScrollView(
+        child: RefreshIndicator(
+            onRefresh: () async => ref.read(userControllerWithRefreshTokenFlowProvider.notifier).getUser(),
+            child: userModel.when(
+              data: (value) => CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
                     hasScrollBody: false,
@@ -29,7 +29,7 @@ class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetStat
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () => ref.read(userControllerProvider.notifier).getUserImage(),
+                          onTap: () => ref.read(userControllerWithRefreshTokenFlowProvider.notifier).getUserImage(),
                           child: CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.white,
@@ -44,10 +44,9 @@ class _NetworkConsumerStatefulWidgetState extends BaseConsumerStatefulWidgetStat
                   )
                 ],
               ),
-            AsyncError() => Text(S.current.generalError),
-            _ => const CircularProgressIndicator()
-          }),
-    );
+              error: (err, stack) => WidgetErrorWrapper(err, customErrorWidget: (Text(S.current.generalError))),
+              loading: () => const CircularProgressIndicator(),
+            )));
   }
 
   @override

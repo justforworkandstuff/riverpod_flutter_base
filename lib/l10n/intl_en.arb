@@ -19,5 +19,8 @@
       }
     }
   },
-  "apiRequestFailed": "Failed to submit the request. Please try again later."
+  "apiRequestFailed": "Failed to submit the request. Please try again later.",
+  "sessionExpired": "Session expired",
+  "pleaseLoginAgain": "Please login again.",
+  "ok": "Ok"
 }

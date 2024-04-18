@@ -26,9 +26,13 @@ class FirebaseHandler {
 
 extension PublicAPIs on FirebaseHandler {
   Future<void> initialize(EnvironmentType type) async {
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform(type));
-    await setupAnalyticsAndCrashlytics();
-    await setupRemoteConfig(FirebaseRemoteConfig.instance);
+    try {
+      await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform(type));
+      await setupAnalyticsAndCrashlytics();
+      await setupRemoteConfig(FirebaseRemoteConfig.instance);
+    } catch (e) {
+      debugPrint('fcm: initialize error! ${e.toString()}');
+    }
   }
 
   Future<void> setupAnalyticsAndCrashlytics() async {
