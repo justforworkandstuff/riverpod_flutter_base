@@ -189,6 +189,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Session expired`
+  String get sessionExpired {
+    return Intl.message(
+      'Session expired',
+      name: 'sessionExpired',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please login again.`
+  String get pleaseLoginAgain {
+    return Intl.message(
+      'Please login again.',
+      name: 'pleaseLoginAgain',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ok`
+  String get ok {
+    return Intl.message(
+      'Ok',
+      name: 'ok',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

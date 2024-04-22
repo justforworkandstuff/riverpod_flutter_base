@@ -40,6 +40,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "networkWithRefreshToken":
             MessageLookupByLibrary.simpleMessage("Network (Refresh Token)"),
         "newToDo": MessageLookupByLibrary.simpleMessage("New to do"),
+        "ok": MessageLookupByLibrary.simpleMessage("Ok"),
+        "pleaseLoginAgain":
+            MessageLookupByLibrary.simpleMessage("Please login again."),
+        "sessionExpired":
+            MessageLookupByLibrary.simpleMessage("Session expired"),
         "textOk": MessageLookupByLibrary.simpleMessage("OK"),
         "todo": MessageLookupByLibrary.simpleMessage("To-Do")
       };

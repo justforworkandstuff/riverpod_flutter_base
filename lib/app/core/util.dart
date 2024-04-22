@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:async';
+import 'dart:io';
 
 import 'package:android_id/android_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dumbdumb_flutter_app/app/common/widgets/widget_custom_alert_dialog.dart';
 import 'package:dumbdumb_flutter_app/app/core/app_router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,6 +24,15 @@ class CommonActionsUtil {
             actions: actions,
             dismissible: dismissible,
             customWidget: customWidget));
+  }
+
+  static Widget getDialogButton(String text, VoidCallback? onPressed) {
+    return Platform.isAndroid
+        ? TextButton(onPressed: onPressed, child: Text(text))
+        : CupertinoDialogAction(
+      onPressed: onPressed,
+      child: Text(text),
+    );
   }
 
   static void showSnackBar(BuildContext context, String text) {

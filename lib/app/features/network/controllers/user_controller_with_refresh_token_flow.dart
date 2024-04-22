@@ -1,4 +1,5 @@
 import 'package:dumbdumb_flutter_app/app/features/network/model/user_model.dart';
+import 'package:dumbdumb_flutter_app/app/features/network/providers/network_provider.dart';
 import 'package:dumbdumb_flutter_app/app/features/network/service/user_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -8,8 +9,8 @@ part 'user_controller_with_refresh_token_flow.g.dart';
 class UserControllerWithRefreshTokenFlow extends _$UserControllerWithRefreshTokenFlow {
   @override
   FutureOr<UserModel?> build() async {
-    final UserService userService = UserService(ref: ref);
-    await userService.putUserImage('https://randomuser.me/api/portraits/lego/7.jpg');
+    final userService = ref.watch(userServiceProvider);
+    final userRepository = ref.watch(userRepositoryProvider);
     // TODO: Enable these for refresh token flow request testing
     // 1. Insert token to simulate already login status as per production
     // 2. Perform multiple api calls simultaneously under accessToken expired status
@@ -28,7 +29,7 @@ class UserControllerWithRefreshTokenFlow extends _$UserControllerWithRefreshToke
     //   userService.getSecondApi(),
     // ]);
     // ------- End --------
-    return await userService.getUser();
+    return await userService.getUser(userRepository);
   }
 
   void getUser() async {
@@ -37,10 +38,11 @@ class UserControllerWithRefreshTokenFlow extends _$UserControllerWithRefreshToke
   }
 
   void getUserImage() async {
-    final UserService userService = UserService(ref: ref);
+    final UserService userService = ref.read(userServiceProvider);
     final previousState = await future;
 
     /// Insert dummy network image to sharedPref, then retrieve it back later
-    state = AsyncData(previousState?.copyWith(profileImage: userService.getUserImage()));
+    state =
+        AsyncData(previousState?.copyWith(profileImage: userService.getUserImage(ref.read(authRepositoryProvider))));
   }
 }
